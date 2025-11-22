@@ -23,6 +23,12 @@
             --toggle-btn-text-dark: #ffffff;
             --nav-link-light: #000000;
             --nav-link-dark: #ffffff;
+            --floating-shape1-light: #6fcf6f;
+            --floating-shape2-light: #4CAF50;
+            --floating-shape3-light: #8BC34A;
+            --floating-shape1-dark: #4CAF50;
+            --floating-shape2-dark: #388E3C;
+            --floating-shape3-dark: #689F38;
         }
 
         /* General */
@@ -94,6 +100,141 @@
         body.dark .toggle-btn {
             color: var(--toggle-btn-text-dark);
         }
+
+        /* Floating Circles */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 10s infinite alternate;
+            z-index: 1;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+            background-color: var(--floating-shape1-dark);
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            right: 10%;
+            background-color: var(--floating-shape2-dark);
+        }
+
+        .shape3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 25%;
+            background-color: var(--floating-shape3-dark);
+        }
+
+        body.light .shape1 {
+            background-color: var(--floating-shape1-light);
+        }
+
+        body.light .shape2 {
+            background-color: var(--floating-shape2-light);
+        }
+
+        body.light .shape3 {
+            background-color: var(--floating-shape3-light);
+        }
+
+        /* Bio-related Floating Shapes */
+        .floating-shape.bio-dna,
+        .floating-shape.bio-microscope,
+        .floating-shape.bio-leaf,
+        .floating-shape.bio-cell {
+            position: absolute;
+            opacity: 0.15;
+            z-index: 1;
+            font-size: 2rem;
+            animation: floatRotateScale linear infinite alternate;
+        }
+
+        .floating-shape.bio-dna {
+            top: 20%;
+            left: 70%;
+            animation-duration: 12s;
+        }
+
+        .floating-shape.bio-microscope {
+            top: 60%;
+            right: 15%;
+            animation-duration: 14s;
+        }
+
+        .floating-shape.bio-leaf {
+            bottom: 25%;
+            left: 10%;
+            font-size: 1.8rem;
+            animation-duration: 11s;
+        }
+
+        .floating-shape.bio-cell {
+            bottom: 15%;
+            right: 25%;
+            animation-duration: 13s;
+        }
+
+        body.light .bio-dna,
+        body.light .bio-microscope,
+        body.light .bio-leaf,
+        body.light .bio-cell {
+            color: var(--secondary-color);
+        }
+
+        body.dark .bio-dna,
+        body.dark .bio-microscope,
+        body.dark .bio-leaf,
+        body.dark .bio-cell {
+            color: #ffffff;
+        }
+
+        /* Float Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        @keyframes floatRotateScale {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: translateY(-10px) rotate(90deg) scale(1.05);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg) scale(0.95);
+            }
+
+            75% {
+                transform: translateY(-10px) rotate(270deg) scale(1.05);
+            }
+
+            100% {
+                transform: translateY(0) rotate(360deg) scale(1);
+            }
+        }
+
 
         /* Mobile nav */
         nav.mobile-nav {
@@ -319,12 +460,6 @@
             z-index: 10000;
         }
 
-        /* Floating icons */
-        .floating-icon {
-            position: absolute;
-            pointer-events: none;
-        }
-
         /* Connect Section */
         .connect {
             padding: 4rem 2rem;
@@ -457,7 +592,14 @@
 </head>
 
 <body class="light">
-
+    <!-- Floating Shapes -->
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+    <div class="floating-shape bio-dna">🧬</div>
+    <div class="floating-shape bio-microscope">🔬</div>
+    <div class="floating-shape bio-leaf">🍃</div>
+    <div class="floating-shape bio-cell">🦠</div>
     <header>
         <div class="logo">🧬 StudyBio</div>
         <div class="nav-links">
