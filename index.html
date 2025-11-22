@@ -64,11 +64,19 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
-            background-color: var(--primary-color);
+            background-color: rgba(9, 85, 9, 0.79);
+            /* Dim opacity */
             color: white;
-            position: relative;
-            z-index: 10;
+            position: sticky;
+            /* Sticky header */
+            top: 0;
+            z-index: 1000;
+            /* Ensure it stays above content */
+            backdrop-filter: blur(8px);
+            /* Slight blur for transparency effect */
+            transition: background-color 0.3s ease;
         }
+
 
         header .logo {
             font-family: 'Poppins', sans-serif;
@@ -95,6 +103,10 @@
             color: var(--toggle-btn-text-light);
             font-weight: 600;
             transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.dark header {
+            background-color: rgba(9, 85, 9, 0.79);
         }
 
         body.dark .toggle-btn {
@@ -273,6 +285,18 @@
             color: var(--nav-link-dark);
         }
 
+        @media (max-width: 1024px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.8rem 1rem;
+            }
+        }
+
         @media(max-width:768px) {
             header .nav-links {
                 display: none;
@@ -331,38 +355,95 @@
         }
 
         /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding: 4rem 2rem;
+
+        #why-platform {
+            padding: 80px 20px;
             max-width: 1200px;
-            margin: auto;
-        }
-
-        .feature-card {
-            color: inherit;
-            padding: 2rem;
-            border-radius: 15px;
+            margin: 0 auto;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* TITLE */
+        .features-title {
+            font-size: 3rem;
+            font-family: "Poppins", sans-serif;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #12a804, #41732b, #8fd90f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* PARAGRAPH BELOW TITLE */
+        .features-subtitle {
+            font-size: 1.3rem;
+            font-family: "Poppins   ", sans-serif;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+        }
+
+        /* GRID */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* CARDS */
+        .feature-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: 0.35s ease;
             cursor: pointer;
-            background-color: var(--secondary-color);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
+        /* CARD TITLE */
         .feature-card h3 {
-            margin-bottom: 1rem;
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins";
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
         }
 
+        /* CARD TEXT */
         .feature-card p {
-            font-size: 1rem;
+            font-family: "Poppins";
+            color: var(--text-color);
         }
+
+        /* HOVER EFFECT */
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .feature-card:hover h3,
+        .feature-card:hover p {
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .features-title {
+                font-size: 2.2rem;
+            }
+
+            .features-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
 
         /* email-style */
 
@@ -524,7 +605,8 @@
 
         /* Updated X logo using your PNG */
         .x-logo {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/X_logo_2023_original.svg/512px-X_logo_2023_original.svg.png');
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/2f/X_icon_-_Gray.svg');
+
         }
 
         /* Hover colors */
@@ -585,13 +667,203 @@
         footer {
             text-align: center;
             padding: 2rem;
-            background-color: var(--primary-color);
+            background-color: rgba(9, 85, 9, 0.79);
             color: white;
+            backdrop-filter: blur(8px);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Combined subtle scroll effect */
+        .reveal,
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.active,
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Full Screen Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #e8fff0;
+            /* soft biology green */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            transition: opacity .7s ease, visibility .7s ease;
+        }
+
+        /* Loader container */
+        .book-loader {
+            text-align: center;
+        }
+
+        /* Text */
+        .loading-text {
+            margin-top: 20px;
+            font-family: Poppins, sans-serif;
+            font-size: 1.2rem;
+            color: #00552e;
+            animation: blink 1.4s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .4;
+            }
+        }
+
+        /* BOOK ACTUAL ANIMATION */
+        .book {
+            width: 100px;
+            height: 80px;
+            position: relative;
+            left: 90px;
+        }
+
+        /* Covers */
+        .cover {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: #1cbe6d;
+            border-radius: 6px;
+        }
+
+        /* Left Cover */
+        .cover-left {
+            transform-origin: left center;
+        }
+
+        /* Right Cover */
+        .cover-right {
+            transform-origin: right center;
+        }
+
+        /* Pages container */
+        .pages {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        /* Actual pages */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgb(53, 182, 89);
+            border-radius: 4px;
+            transform-origin: left center;
+            animation: flip 2s ease-in-out infinite;
+        }
+
+        /* 3 pages offset */
+        .page:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .page:nth-child(2) {
+            animation-delay: .3s;
+        }
+
+        .page:nth-child(3) {
+            animation-delay: .6s;
+        }
+
+        /* Animate Left Cover */
+        .cover-left {
+            animation: coverFlipLeft 2s ease-in-out infinite;
+        }
+
+        @keyframes coverFlipLeft {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                transform: rotateY(-20deg);
+            }
+
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        /* Animate Right Cover */
+        .cover-right {
+            animation: coverFlipRight 2s ease-in-out infinite;
+        }
+
+        @keyframes coverFlipRight {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                transform: rotateY(20deg);
+            }
+
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        /* FIX perspective for realistic book effect */
+        .book {
+            perspective: 1200px;
+        }
+
+        /* Page flip animation */
+        @keyframes flip {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                transform: rotateY(-180deg);
+            }
+
+            100% {
+                transform: rotateY(0deg);
+            }
         }
     </style>
 </head>
 
 <body class="light">
+    <!-- Loader -->
+    <div id="loader">
+        <div class="book-loader">
+            <div class="book">
+                <div class="cover cover-left"></div>
+                <div class="pages">
+                    <div class="page"></div>
+                    <div class="page"></div>
+                    <div class="page"></div>
+                </div>
+                <div class="cover cover-right"></div>
+            </div>
+            <p class="loading-text">Loading StudyBio...</p>
+        </div>
+    </div>
+
     <!-- Floating Shapes -->
     <div class="floating-shape shape1"></div>
     <div class="floating-shape shape2"></div>
@@ -600,13 +872,15 @@
     <div class="floating-shape bio-microscope">🔬</div>
     <div class="floating-shape bio-leaf">🍃</div>
     <div class="floating-shape bio-cell">🦠</div>
-    <header>
-        <div class="logo">🧬 StudyBio</div>
+
+
+    <header class="scroll-reveal">
+        <div class="logo"><a href="index.html">StudyBio</a> </div>
         <div class="nav-links">
-            <a href="">Home</a>
-            <a href="#">Resources</a>
-            <a href="#">Simulations</a>
-            <a href="#">About</a>
+            <a href="https://class11th.kesug.com/index_main.html">Home</a>
+            <a href="resources.html">Resources</a>
+            <a href="quizzes.html">Quizzes</a>
+            <a href="about.html">About</a>
         </div>
         <button class="toggle-btn" id="theme-toggle">Dark Mode</button>
     </header>
@@ -618,30 +892,61 @@
         <a href="#">About</a>
     </nav>
 
-    <section class="hero">
+    <section class="hero scroll-reveal">
         <h1>Explore the Wonders of Biology</h1>
-        <p>Dive into interactive simulations, detailed diagrams, and comprehensive biology resources for students of all
+        <p>Dive into interactive simulations, detailed diagrams, and comprehensive biology resources for students of
+            all
             levels.</p>
-        <button class="btn">Get Started</button>
+        <button class="btn"><a href="chapters.html">Get Started</a></button>
     </section>
 
-    <section class="features">
-        <div class="feature-card">
-            <h3>Interactive Simulations</h3>
-            <p>Experience biology in action with fun and educational simulations.</p>
+    <section id="why-platform" class="features scroll-reveal">
+
+        <h2 class="features-title">Why Choose This Platform?</h2>
+
+        <p class="features-subtitle">
+            Our platform provides <b>Interactive Simulations,</b> <b>Detailed Diagrams</b> and <b>Comprehensive
+                Study
+                Resources</b> to make Class 11 Biology simple.
+        </p>
+
+        <div class="feature-grid">
+
+            <!-- CARD 1 -->
+            <div class="feature-card upgraded-card" data-tilt>
+                <div class="bio-icon">
+                    <i class="fi fi-brain"></i>
+                </div>
+                <h3>Interactive Simulations</h3>
+                <p>Experience biology in action with immersive, hands-on simulations.</p>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="feature-card upgraded-card" data-tilt>
+                <div class="bio-icon">
+                    <i class="fi fi-rr-dna"></i>
+                </div>
+                <h3>Detailed Diagrams</h3>
+                <p>Visualize complex concepts with crystal-clear biology diagrams.</p>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="feature-card upgraded-card" data-tilt>
+                <div class="bio-icon">
+                    <i class="fi fi-rr-molecule"></i>
+                </div>
+                <h3>Study Resources</h3>
+                <p>Access notes, past year questions, and smart practice tools.</p>
+            </div>
+
         </div>
-        <div class="feature-card">
-            <h3>Detailed Diagrams</h3>
-            <p>Visualize complex concepts with clear and accurate diagrams.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Study Resources</h3>
-            <p>Access notes, past questions, and practice exercises for every topic.</p>
-        </div>
+
     </section>
+
+
 
     <!-- Contact Section -->
-    <section class="contact-container reveal" id="main-content">
+    <section class="contact-container scroll-reveal reveal" id="main-content">
         <h2 class="connect-title">Contact Us</h2>
         <p class="connect-subtitle">Feel free to share your feedback with us.</p>
 
@@ -676,7 +981,7 @@
     <div id="custom-toast" class="custom-toast"></div>
 
 
-    <section class="connect reveal" id="connect">
+    <section class="connect reveal scroll-reveal" id="connect">
         <div class="connect-container">
             <h2 class="connect-title">Connect With Us</h2>
             <p class="connect-subtitle">Stay in touch through your favorite platform</p>
@@ -699,11 +1004,30 @@
         </div>
     </section>
 
-    <footer>
-        &copy; 2025 StudyBio. All rights reserved.
+    <footer class="scroll-reveal">
+        &copy; 2025 StudyBio..
     </footer>
-
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loader = document.getElementById("loader");
+            const site = document.getElementById("site-content");
+
+            setTimeout(() => {
+                loader.style.opacity = "0";
+                loader.style.visibility = "hidden";
+                site.style.display = "block";
+            }, 5000);  // 5 SEC
+        });
+        // Scroll reveal for all sections
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add("active");
+            });
+        }, { threshold: 0.1 });
+
+        // Observe both .reveal and .scroll-reveal elements
+        document.querySelectorAll(".reveal, .scroll-reveal").forEach(el => revealObserver.observe(el));
+
         const toggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
         toggleBtn.addEventListener('click', () => {
@@ -731,44 +1055,47 @@
                 const blockOverlay = document.createElement('div');
                 blockOverlay.id = 'block-overlay';
                 blockOverlay.style.cssText = `
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(255,255,255,0.95);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(5px);
-    `;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(255,255,255,0.95);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+        `;
                 const blockMessage = document.createElement('div');
                 blockMessage.style.cssText = `
-      background: #333;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      color: white;
-    `;
+        background: #333;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        color: white;
+        `;
                 blockMessage.innerHTML = `
-      <h2 style="color: #e74c3c; margin-bottom: 20px; font-size: 24px;">
-        <i class="fi fi-ss-lock" style="font-size:28px; margin-right:10px; position:relative; top:3px;"></i>
-        Access Temporarily Restricted
-      </h2>
-      <p style="color: #7f8c8d; margin-bottom:25px; line-height:1.6;">
-        You've exceeded the submission limit. Please try again later.
-      </p>
-      <div id="countdown" style="font-size:18px; font-weight:600; color:white; margin-top:20px;">
-        Block expires in: Calculating...
-      </div>
-    `;
+        <h2 style="color: #e74c3c; margin-bottom: 20px; font-size: 24px;">
+            <i class="fi fi-ss-lock" style="font-size:28px; margin-right:10px; position:relative; top:3px;"></i>
+            Access Temporarily Restricted
+        </h2>
+        <p style="color: #7f8c8d; margin-bottom:25px; line-height:1.6;">
+            You've exceeded the submission limit. Please try again later.
+        </p>
+        <div id="countdown" style="font-size:18px; font-weight:600; color:white; margin-top:20px;">
+            Block expires in: Calculating...
+        </div>
+        `;
                 blockOverlay.appendChild(blockMessage);
                 document.body.appendChild(blockOverlay);
 
                 const interactiveElements = mainContent.querySelectorAll('a, button, input, textarea, select');
-                interactiveElements.forEach(el => { el.disabled = true; el.style.pointerEvents = 'none'; el.style.opacity = '0.6'; });
+                interactiveElements.forEach(el => {
+                    el.disabled = true; el.style.pointerEvents = 'none'; el.style.opacity =
+                        '0.6';
+                });
             }
 
             function startCountdown(endTime) {
@@ -778,20 +1105,21 @@
                     const now = Date.now();
                     const timeRemaining = endTime - now;
                     if (timeRemaining <= 0) {
-                        clearInterval(countdownInterval);
-                        localStorage.removeItem("blocked");
-                        localStorage.removeItem("blockedAt");
-                        localStorage.setItem("submissions", 0);
-                        const blockOverlay = document.getElementById('block-overlay');
-                        if (blockOverlay) blockOverlay.remove();
-                        const interactiveElements = mainContent.querySelectorAll('a, button, input, textarea, select');
-                        interactiveElements.forEach(el => { el.disabled = false; el.style.pointerEvents = 'auto'; el.style.opacity = '1'; });
+                        clearInterval(countdownInterval); localStorage.removeItem("blocked");
+                        localStorage.removeItem("blockedAt"); localStorage.setItem("submissions", 0); const
+                            blockOverlay = document.getElementById('block-overlay'); if (blockOverlay) blockOverlay.remove(); const
+                                interactiveElements = mainContent.querySelectorAll('a, button, input, textarea, select');
+                        interactiveElements.forEach(el => {
+                            el.disabled = false; el.style.pointerEvents = 'auto'; el.style.opacity =
+                                '1';
+                        });
                         return;
                     }
                     const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
                     const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-                    countdownElement.textContent = `Block expires in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    countdownElement.textContent = `Block expires in: ${hours.toString().padStart(2,
+                        '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                 }, 1000);
             }
 
@@ -876,7 +1204,10 @@
                     const blockOverlay = document.getElementById('block-overlay');
                     if (blockOverlay) blockOverlay.remove();
                     const interactiveElements = mainContent.querySelectorAll('a,button,input,textarea,select');
-                    interactiveElements.forEach(el => { el.disabled = false; el.style.pointerEvents = 'auto'; el.style.opacity = '1'; });
+                    interactiveElements.forEach(el => {
+                        el.disabled = false; el.style.pointerEvents = 'auto'; el.style.opacity =
+                            '1';
+                    });
                     showCustomToast("🔓 Admin: Block disabled", false);
                     adminKeySequence = [];
                 }
