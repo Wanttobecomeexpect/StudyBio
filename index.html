@@ -1007,6 +1007,8 @@
     <footer class="scroll-reveal">
         &copy; 2025 StudyBio Unlocking the Secrets of Life
     </footer>
+
+    <script src="emailnext.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const loader = document.getElementById("loader");
@@ -1016,7 +1018,7 @@
                 loader.style.opacity = "0";
                 loader.style.visibility = "hidden";
                 site.style.display = "block";
-            }, 5000);  // 5 SEC
+            }, 3000);  // 3 SEC
         });
         // Scroll reveal for all sections
         const revealObserver = new IntersectionObserver((entries) => {
@@ -1041,6 +1043,9 @@
                 toggleBtn.textContent = 'Dark Mode';
             }
         });
+
+        //  EmailJS Integration with Submission Limiting
+
         document.addEventListener("DOMContentLoaded", function () {
             emailjs.init("RYYFC5RhmjDpeAxwv");
 
