@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyBio - Chapters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="globalstyle.css" />
+    <style>
+        /* Scroll reveal effect */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.7s ease;
+        }
+
+        .revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========= CHAPTER SECTION ========= */
+
+        .chapter-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chapter-title {
+            font-size: 3rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            /* biology-themed gradient: leaf green -> chlorophyll teal -> ocean blue */
+            background: linear-gradient(90deg, #2ecc71, #16a085, #2e86de);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .chapter-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 40px auto;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .chapter-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 22px;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+            transition: 0.3s ease;
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
+
+        .chapter-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .chapter-heading {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+        }
+
+        .chapter-list {
+            list-style: none;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chapter-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(120, 120, 120, 0.25);
+            transition: 0.25s;
+        }
+
+        .chapter-list li:hover {
+            color: var(--secondary-color);
+            padding-left: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        /* small helper: hide content until loader removed */
+        #site-content {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="light">
+
+    <!-- Loader -->
+    <div id="loader" aria-hidden="false">
+        <div class="book-loader" role="status" aria-live="polite">
+            <div class="book" aria-hidden="true">
+                <div class="cover cover-left"></div>
+                <div class="pages">
+                    <div class="page"></div>
+                    <div class="page"></div>
+                    <div class="page"></div>
+                </div>
+                <div class="cover cover-right"></div>
+            </div>
+            <p class="loading-text">Loading StudyBio...</p>
+        </div>
+    </div>
+
+    <!-- Floating shapes -->
+    <div class="floating-shape shape1" aria-hidden="true"></div>
+    <div class="floating-shape shape2" aria-hidden="true"></div>
+    <div class="floating-shape shape3" aria-hidden="true"></div>
+    <div class="bio-dna floating-shape" aria-hidden="true">🧬</div>
+    <div class="bio-microscope floating-shape" aria-hidden="true">🔬</div>
+    <div class="bio-leaf floating-shape" aria-hidden="true">🍃</div>
+    <div class="bio-cell floating-shape" aria-hidden="true">🦠</div>
+
+    <!-- SITE CONTENT (sections removed) -->
+    <div id="site-content">
+
+        <!-- Header (with small image logo placeholder) -->
+        <header>
+            <div class="logo">
+                <a href="index.html">StudyBio</a>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="resources.html">Resources</a>
+                <a href="quizzes.html">Quizzes</a>
+                <a href="about.html">About</a>
+            </div>
+
+            <button class="toggle-btn" id="theme-toggle" aria-pressed="false">Dark Mode</button>
+        </header>
+
+        <!-- Mobile nav -->
+        <nav class="mobile-nav" aria-hidden="true">
+            <a href="index.html">Home</a>
+            <a href="resources.html">Resources</a>
+            <a href="quizzes.html">Quizzes</a>
+            <a href="about.html">About</a>
+        </nav>
+        <section class="chapter-section scroll-reveal" id="chapters">
+
+            <h2 class="chapter-title">Biology Chapter Index</h2>
+
+            <p class="chapter-subtitle">
+                Explore structured chapter lists from both <b>Botany</b> and <b>Zoology</b> — designed for quick access
+                & smart study.
+            </p>
+
+            <div class="chapter-grid">
+
+                <!-- BOTANY -->
+                <div class="chapter-box">
+                    <h3 class="chapter-heading">🌿 Botany</h3>
+                    <ul class="chapter-list">
+                        <li> <a href="">1. The Living World (Plants)</a> </li>
+                        <li> <a href="">2. Biological Classification</a> </li>
+                        <li> <a href="">3. Plant Kingdom</a> </li>
+                        <li> <a href="">4. Morphology of Flowering Plants</a> </li>
+                        <li> <a href="">5. Anatomy of Flowering Plants</a> </li>
+                        <li> <a href="">6. Cell – Structure & Function</a> </li>
+                        <li> <a href="">7. Biomolecules</a> </li>
+                        <li> <a href="">8. Plant Physiology</a> </li>
+                        <li> <a href="">9. Photosynthesis in Higher Plants</a> </li>
+                        <li> <a href="">10. Respiration in Plants</a> </li>
+                        <li> <a href="">11. Plant Growth & Development</a> </li>
+                    </ul>
+                </div>
+
+                <!-- ZOOLOGY -->
+                <div class="chapter-box">
+                    <h3 class="chapter-heading">🧬 Zoology</h3>
+                    <ul class="chapter-list">
+                        <li> <a href="">1. The Living World (Animals)</a> </li>
+                        <li> <a href="">2. Animal Kingdom</a> </li>
+                        <li> <a href="">3. Structural Organisation in Animals</a> </li>
+                        <li> <a href="">4. Cell Cycle & Cell Division</a> </li>
+                        <li> <a href="">5. Human Physiology</a> </li>
+                        <li> <a href="">6. Digestion & Absorption</a> </li>
+                        <li> <a href="">7. Breathing & Exchange of Gases</a> </li>
+                        <li> <a href="">8. Body Fluids & Circulation</a> </li>
+                        <li> <a href="">9. Excretory Products & Their Elimination</a> </li>
+                        <li> <a href="">10. Locomotion & Movement</a> </li>
+                        <li> <a href="">11. Neural Control & Coordination</a> </li>
+                        <li> <a href="">12. Chemical Coordination & Integration</a> </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            &copy; 2025 StudyBio — Unlocking the Secrets of Life
+        </footer>
+    </div>
+    <script src="globalnext.js"></script>
+    <script>
+
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll(".scroll-reveal");
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("revealed");
+                }
+            });
+        }, { threshold: 0.2 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+
+    </script>
+</body>
+
+</html>

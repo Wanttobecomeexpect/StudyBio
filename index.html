@@ -877,7 +877,7 @@
     <header class="scroll-reveal">
         <div class="logo"><a href="index.html">StudyBio</a> </div>
         <div class="nav-links">
-            <a href="https://class11th.kesug.com/index_main.html">Home</a>
+            <a href="index.html">Home</a>
             <a href="resources.html">Resources</a>
             <a href="quizzes.html">Quizzes</a>
             <a href="about.html">About</a>
@@ -886,10 +886,10 @@
     </header>
 
     <nav class="mobile-nav">
-        <a href="#">Home</a>
-        <a href="#">Resources</a>
-        <a href="#">Simulations</a>
-        <a href="#">About</a>
+        <a href="index.html">Home</a>
+        <a href="resources.html">Resources</a>
+        <a href="quizzes.html">Quizzes</a>
+        <a href="about.html">About</a>
     </nav>
 
     <section class="hero scroll-reveal">
@@ -902,10 +902,10 @@
 
     <section id="why-platform" class="features scroll-reveal">
 
-        <h2 class="features-title">Why Choose This Platform?</h2>
+        <h2 class="features-title">Powering Your Biology Journey</h2>
 
         <p class="features-subtitle">
-            Our platform provides <b>Interactive Simulations,</b> <b>Detailed Diagrams</b> and <b>Comprehensive
+            By the help of <b>Interactive Simulations,</b> <b>Detailed Diagrams</b> and <b>Comprehensive
                 Study
                 Resources</b> to make Class 11 Biology simple.
         </p>
@@ -1007,6 +1007,8 @@
     <footer class="scroll-reveal">
         &copy; 2025 StudyBio Unlocking the Secrets of Life
     </footer>
+
+    <script src="emailnext.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const loader = document.getElementById("loader");
@@ -1016,7 +1018,7 @@
                 loader.style.opacity = "0";
                 loader.style.visibility = "hidden";
                 site.style.display = "block";
-            }, 2000);  // 2 SEC
+            }, 3000);  // 3 SEC
         });
         // Scroll reveal for all sections
         const revealObserver = new IntersectionObserver((entries) => {
@@ -1028,18 +1030,30 @@
         // Observe both .reveal and .scroll-reveal elements
         document.querySelectorAll(".reveal, .scroll-reveal").forEach(el => revealObserver.observe(el));
 
-        const toggleBtn = document.getElementById('theme-toggle');
+        // Theme persistence
         const body = document.body;
+        const toggleBtn = document.getElementById('theme-toggle');
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.classList.remove('light', 'dark');
+            body.classList.add(savedTheme);
+            toggleBtn.textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        } else {
+            // Default is light
+            body.classList.add('light');
+            toggleBtn.textContent = 'Dark Mode';
+        }
+
+        // Toggle event
         toggleBtn.addEventListener('click', () => {
-            if (body.classList.contains('light')) {
-                body.classList.remove('light');
-                body.classList.add('dark');
-                toggleBtn.textContent = 'Light Mode';
-            } else {
-                body.classList.remove('dark');
-                body.classList.add('light');
-                toggleBtn.textContent = 'Dark Mode';
-            }
+            const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.classList.remove(currentTheme);
+            body.classList.add(newTheme);
+            toggleBtn.textContent = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+            localStorage.setItem('theme', newTheme);
         });
 
         //  EmailJS Integration with Submission Limiting
