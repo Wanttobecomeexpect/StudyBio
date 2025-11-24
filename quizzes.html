@@ -2,23 +2,342 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>StudyBio - Quizzes</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;700&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet">
     <link rel="stylesheet" href="globalstyle.css" />
     <style>
-        /* small helper: hide content until loader removed */
+        :root {
+            --primary-color: #0c6f51;
+            --secondary-color: #4CAF50;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --accent: #12b35f;
+            --muted: #7d8e85;
+        }
+
+        /* keep existing site-content hidden until loader removed */
         #site-content {
             display: none;
+        }
+
+        /* --- page layout --- */
+        .page-wrap {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 40px 24px;
+            font-family: Inter, sans-serif;
+        }
+
+        .page-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .page-head .title {
+            font-family: Poppins, sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .page-head .subtitle {
+            color: var(--muted);
+            font-size: 0.98rem;
+            max-width: 640px;
+            text-align: right;
+        }
+
+        /* layout columns */
+        .cols {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 28px;
+        }
+
+        @media(max-width:900px) {
+            .cols {
+                grid-template-columns: 1fr;
+            }
+
+            .page-head .subtitle {
+                text-align: left;
+                margin-top: 8px;
+            }
+        }
+
+        /* chapters list card */
+        .chapters-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 6px 30px rgba(11, 61, 46, 0.06);
+        }
+
+        .chapters-card h4 {
+            font-family: Poppins;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .18s;
+        }
+
+        .chapter-item+.chapter-item {
+            margin-top: 8px;
+        }
+
+        .chapter-item:hover {
+            transform: translateY(-3px);
+            background: rgba(76, 175, 80, 0.06);
+        }
+
+        .chapter-item.active {
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.12), rgba(11, 61, 46, 0.03));
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .chapter-item .meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chapter-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, var(--secondary-color), #0b6a44);
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(11, 61, 46, 0.2);
+        }
+
+        .chapter-item small {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        /* quiz area */
+        .quiz-card {
+            background: var(--glass-bg);
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(2, 16, 10, 0.06);
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--secondary-color), #0b6a44);
+            color: white;
+            box-shadow: 0 8px 24px rgba(11, 61, 46, 0.12);
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid rgba(11, 61, 46, 0.06);
+            box-shadow: none;
+            font-weight: 600;
+        }
+
+        .q-info {
+            margin-left: auto;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        /* question box */
+        .question {
+            margin-bottom: 18px;
+            padding: 14px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(11, 61, 46, 0.03);
+        }
+
+        .question h5 {
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .15s;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            background: transparent;
+        }
+
+        .option:hover {
+            transform: translateY(-3px);
+            background: rgba(76, 175, 80, 0.03);
+        }
+
+        .option input {
+            accent-color: var(--secondary-color);
+        }
+
+        .option.correct {
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.14), rgba(11, 61, 46, 0.03));
+            border: 1px solid rgba(76, 175, 80, 0.16);
+        }
+
+        .option.wrong {
+            background: linear-gradient(90deg, rgba(255, 90, 90, 0.06), rgba(11, 61, 46, 0.02));
+            border: 1px solid rgba(255, 90, 90, 0.08);
+            opacity: 0.95;
+        }
+
+        .explain {
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.03);
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* results */
+        .result-badge {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .result-badge.success {
+            background: linear-gradient(90deg, rgba(67, 190, 71, 0.14), rgba(15, 87, 66, 0.03));
+            color: #12814c;
+        }
+
+        .result-badge.warn {
+            background: linear-gradient(90deg, rgba(255, 200, 0, 0.12), rgba(107, 122, 28, 0.03));
+            color: #866a19;
+        }
+
+        .score-line {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* small helpers */
+        .muted {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        /* ---------------- Quiz Page Footer ---------------- */
+        .quiz-footer {
+            margin-top: 40px;
+            padding: 18px 10px;
+            text-align: center;
+            font-family: "Inter", sans-serif;
+            font-size: 0.95rem;
+
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.30);
+            color: #1a2d1a;
+
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+
+            transition: 0.3s ease;
+
+            /* fade-in animation */
+            animation: footerFadeIn 0.7s ease-out forwards;
+        }
+
+        /* Hover effect */
+        .quiz-footer:hover {
+            box-shadow: 0 0 18px rgba(0, 150, 80, 0.15);
+        }
+
+        /* --- Dark mode --- */
+        body.dark .quiz-footer {
+            background: rgba(25, 40, 30, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: #d8ffd8;
+        }
+
+        body.dark .quiz-footer:hover {
+            box-shadow: 0 0 18px rgba(120, 255, 160, 0.25);
+        }
+
+        body.light .quiz-footer:hover {
+            box-shadow: 0 0 18px rgba(2, 101, 55, 0.34);
+        }
+
+        /* --- Fade-in animation keyframes --- */
+        @keyframes footerFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 
 <body class="light">
 
-    <!-- Loader -->
+    <!-- (keep your loader) -->
     <div id="loader" aria-hidden="false">
         <div class="book-loader" role="status" aria-live="polite">
             <div class="book" aria-hidden="true">
@@ -45,11 +364,9 @@
 
     <!-- SITE CONTENT (sections removed) -->
     <div id="site-content">
+        <!-- header (kept simple to match your site) -->
         <header class="scroll">
-            <div class="logo">
-                <a href="index.html">StudyBio</a>
-            </div>
-
+            <div class="logo"><a href="index.html">StudyBio</a></div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="resources.html">Resources</a>
@@ -58,23 +375,759 @@
             </div>
             <button class="toggle-btn" id="theme-toggle">Dark Mode</button>
         </header>
-        <!-- Mobile nav -->
-        <nav class="mobile-nav" aria-hidden="true">
+
+        <nav class="mobile-nav">
             <a href="index.html">Home</a>
             <a href="resources.html">Resources</a>
             <a href="quizzes.html">Quizzes</a>
             <a href="about.html">About</a>
         </nav>
 
-        <!-- Footer -->
-        <footer>
+        <main class="page-wrap" id="quiz-app" role="main" aria-labelledby="pageTitle">
+            <div class="page-head">
+                <div>
+                    <div id="pageTitle" class="title">Chapter Quizzes — Test Yourself</div>
+                    <div class="muted" style="margin-top:6px">Choose a chapter on the left, answer the questions and
+                        submit — immediate grading & feedback.</div>
+                </div>
+                <div class="subtitle">Marks are auto-calculated. Progress is saved locally for your convenience.</div>
+            </div>
+
+            <div class="cols">
+                <!-- left: chapters -->
+                <aside class="chapters-card" aria-label="Chapters">
+                    <h4>Chapters</h4>
+                    <div id="chaptersList" role="list"></div>
+                </aside>
+
+                <!-- right: quiz area -->
+                <section class="quiz-card" aria-live="polite">
+                    <div class="quiz-controls">
+                        <button class="btn ghost" id="backBtn" title="Back to chapters" style="display:none">←
+                            Back</button>
+                        <div id="chapterTitle" style="font-weight:700; font-family:Poppins;">Select a chapter to start
+                        </div>
+
+                        <div class="q-info" id="qInfo">No quiz loaded</div>
+                    </div>
+
+                    <div id="quizArea" aria-live="polite">
+                        <div class="muted center" id="helpText">Pick a chapter to load quiz questions.</div>
+                    </div>
+
+                    <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+                        <button class="btn" id="submitBtn" style="display:none">Submit Answers</button>
+                        <button class="btn ghost" id="retakeBtn" style="display:none">Retake Quiz</button>
+                        <div id="lastScore" class="muted" style="margin-left:auto"></div>
+                    </div>
+
+                </section>
+            </div>
+
+            <div class="quiz-footer">
+                <p>Tip: Quizzes run locally in your browser. No data is sent anywhere.</p>
+            </div>
+
+        </main>
+
+        <footer style="margin-top:36px; text-align:center;">
             &copy; 2025 StudyBio — Unlocking the Secrets of Life
         </footer>
     </div>
 
     <script src="globalnext.js"></script>
     <script>
+        /****************************************************************
+         * Quiz data - add/update questions here
+         * Each chapter has id, title, questions: [{id,text,options:[{id,text}],answer:optionId, explanation}]
+         ****************************************************************/
+       const QUIZ_DB = [
+  {
+    id: "ch1",
+    title: "The Living World",
+    questions: [
+      {
+        id: "ch1q1",
+        text: "Which is the basic unit of classification?",
+        options: [
+          { id: "a", text: "Species" },
+          { id: "b", text: "Genus" },
+          { id: "c", text: "Family" },
+          { id: "d", text: "Order" }
+        ],
+        answer: "a",
+        explanation: "Species is the fundamental unit of classification."
+      }
+    ]
+  },
 
+  {
+    id: "ch2",
+    title: "Biological Classification",
+    questions: [
+      {
+        id: "ch2q1",
+        text: "Which kingdom includes prokaryotes?",
+        options: [
+          { id: "a", text: "Monera" },
+          { id: "b", text: "Protista" },
+          { id: "c", text: "Fungi" },
+          { id: "d", text: "Plantae" }
+        ],
+        answer: "a",
+        explanation: "Kingdom Monera contains prokaryotic organisms."
+      }
+    ]
+  },
+
+  {
+    id: "ch3",
+    title: "Plant Kingdom",
+    questions: [
+      {
+        id: "ch3q1",
+        text: "Which group of plants has no vascular tissue?",
+        options: [
+          { id: "a", text: "Bryophytes" },
+          { id: "b", text: "Pteridophytes" },
+          { id: "c", text: "Gymnosperms" },
+          { id: "d", text: "Angiosperms" }
+        ],
+        answer: "a",
+        explanation: "Bryophytes lack vascular tissue."
+      }
+    ]
+  },
+
+  {
+    id: "ch4",
+    title: "Animal Kingdom",
+    questions: [
+      {
+        id: "ch4q1",
+        text: "Which phylum contains animals with radial symmetry?",
+        options: [
+          { id: "a", text: "Cnidaria" },
+          { id: "b", text: "Arthropoda" },
+          { id: "c", text: "Chordata" },
+          { id: "d", text: "Annelida" }
+        ],
+        answer: "a",
+        explanation: "Cnidarians exhibit radial symmetry."
+      }
+    ]
+  },
+
+  {
+    id: "ch5",
+    title: "Morphology of Flowering Plants",
+    questions: [
+      {
+        id: "ch5q1",
+        text: "The edible part of a mango is:",
+        options: [
+          { id: "a", text: "Mesocarp" },
+          { id: "b", text: "Endocarp" },
+          { id: "c", text: "Seed" },
+          { id: "d", text: "Exocarp" }
+        ],
+        answer: "a",
+        explanation: "Mango is a drupe; its mesocarp is edible."
+      }
+    ]
+  },
+
+  {
+    id: "ch6",
+    title: "Anatomy of Flowering Plants",
+    questions: [
+      {
+        id: "ch6q1",
+        text: "Casparian strips occur in:",
+        options: [
+          { id: "a", text: "Endodermis" },
+          { id: "b", text: "Epidermis" },
+          { id: "c", text: "Cortex" },
+          { id: "d", text: "Pericycle" }
+        ],
+        answer: "a",
+        explanation: "Endodermis contains Casparian strips."
+      }
+    ]
+  },
+
+  {
+    id: "ch7",
+    title: "Structural Organisation in Animals",
+    questions: [
+      {
+        id: "ch7q1",
+        text: "The functional unit of the liver is:",
+        options: [
+          { id: "a", text: "Lobule" },
+          { id: "b", text: "Nephron" },
+          { id: "c", text: "Neuron" },
+          { id: "d", text: "Alveoli" }
+        ],
+        answer: "a",
+        explanation: "Liver lobules are structural and functional units."
+      }
+    ]
+  },
+
+  {
+    id: "ch8",
+    title: "Cell: The Unit of Life",
+    questions: [
+      {
+        id: "ch8q1",
+        text: "Mitochondria are known as:",
+        options: [
+          { id: "a", text: "Powerhouse of the cell" },
+          { id: "b", text: "Kitchen of the cell" },
+          { id: "c", text: "Control center" },
+          { id: "d", text: "Protein factory" }
+        ],
+        answer: "a",
+        explanation: "Mitochondria produce ATP."
+      }
+    ]
+  },
+
+  {
+    id: "ch9",
+    title: "Cell Cycle and Cell Division",
+    questions: [
+      {
+        id: "ch9q1",
+        text: "Which phase involves chromosome condensation?",
+        options: [
+          { id: "a", text: "Prophase" },
+          { id: "b", text: "Metaphase" },
+          { id: "c", text: "Anaphase" },
+          { id: "d", text: "Telophase" }
+        ],
+        answer: "a",
+        explanation: "Chromosomes condense during prophase."
+      }
+    ]
+  },
+
+  {
+    id: "ch10",
+    title: "Cell Cycle and Cell Division",
+    questions: [
+      {
+        id: "ch10q1",
+        text: "Which phase involves separation of sister chromatids?",
+        options: [
+          { id: "a", text: "Anaphase" },
+          { id: "b", text: "Prophase" },
+          { id: "c", text: "Telophase" },
+          { id: "d", text: "Interphase" }
+        ],
+        answer: "a",
+        explanation: "Chromatids separate during anaphase."
+      }
+    ]
+  },
+
+  {
+    id: "ch11",
+    title: "Transport in Plants",
+    questions: [
+      {
+        id: "ch11q1",
+        text: "Which tissue transports water?",
+        options: [
+          { id: "a", text: "Xylem" },
+          { id: "b", text: "Phloem" },
+          { id: "c", text: "Parenchyma" },
+          { id: "d", text: "Collenchyma" }
+        ],
+        answer: "a",
+        explanation: "Xylem transports water and minerals."
+      }
+    ]
+  },
+
+  {
+    id: "ch12",
+    title: "Mineral Nutrition",
+    questions: [
+      {
+        id: "ch12q1",
+        text: "Nodule formation occurs in:",
+        options: [
+          { id: "a", text: "Legumes" },
+          { id: "b", text: "Gymnosperms" },
+          { id: "c", text: "Algae" },
+          { id: "d", text: "Bryophytes" }
+        ],
+        answer: "a",
+        explanation: "Rhizobium forms nodules in leguminous plants."
+      }
+    ]
+  },
+
+  {
+    id: "ch13",
+    title: "Photosynthesis in Higher Plants",
+    questions: [
+      {
+        id: "ch13q1",
+        text: "Where does the Calvin cycle occur?",
+        options: [
+          { id: "a", text: "Stroma" },
+          { id: "b", text: "Thylakoid" },
+          { id: "c", text: "Mitochondria" },
+          { id: "d", text: "Cytoplasm" }
+        ],
+        answer: "a",
+        explanation: "The Calvin cycle occurs in the stroma of chloroplasts."
+      }
+    ]
+  },
+
+  {
+    id: "ch14",
+    title: "Respiration in Plants",
+    questions: [
+      {
+        id: "ch14q1",
+        text: "Which is the universal energy currency?",
+        options: [
+          { id: "a", text: "ATP" },
+          { id: "b", text: "ADP" },
+          { id: "c", text: "GTP" },
+          { id: "d", text: "NADH" }
+        ],
+        answer: "a",
+        explanation: "ATP is the universal energy currency."
+      }
+    ]
+  },
+
+  {
+    id: "ch15",
+    title: "Plant Growth and Development",
+    questions: [
+      {
+        id: "ch15q1",
+        text: "Which hormone promotes cell elongation?",
+        options: [
+          { id: "a", text: "Auxin" },
+          { id: "b", text: "Cytokinin" },
+          { id: "c", text: "ABA" },
+          { id: "d", text: "Ethylene" }
+        ],
+        answer: "a",
+        explanation: "Auxin promotes cell elongation."
+      }
+    ]
+  },
+
+  {
+    id: "ch16",
+    title: "Digestion and Absorption",
+    questions: [
+      {
+        id: "ch16q1",
+        text: "Which enzyme breaks down proteins?",
+        options: [
+          { id: "a", text: "Pepsin" },
+          { id: "b", text: "Amylase" },
+          { id: "c", text: "Lipase" },
+          { id: "d", text: "Maltase" }
+        ],
+        answer: "a",
+        explanation: "Pepsin digests proteins."
+      }
+    ]
+  },
+
+  {
+    id: "ch17",
+    title: "Breathing and Exchange of Gases",
+    questions: [
+      {
+        id: "ch17q1",
+        text: "The functional unit of lungs is:",
+        options: [
+          { id: "a", text: "Alveoli" },
+          { id: "b", text: "Nephron" },
+          { id: "c", text: "Villi" },
+          { id: "d", text: "Bronchi" }
+        ],
+        answer: "a",
+        explanation: "Alveoli allow gas exchange."
+      }
+    ]
+  },
+
+  {
+    id: "ch18",
+    title: "Body Fluids and Circulation",
+    questions: [
+      {
+        id: "ch18q1",
+        text: "Which blood group is universal donor?",
+        options: [
+          { id: "a", text: "O-" },
+          { id: "b", text: "AB+" },
+          { id: "c", text: "A+" },
+          { id: "d", text: "B-" }
+        ],
+        answer: "a",
+        explanation: "O- has no antigens, so universal donor."
+      }
+    ]
+  },
+
+  {
+    id: "ch19",
+    title: "Excretory Products and Their Elimination",
+    questions: [
+      {
+        id: "ch19q1",
+        text: "The functional unit of kidney is:",
+        options: [
+          { id: "a", text: "Nephron" },
+          { id: "b", text: "Neuron" },
+          { id: "c", text: "Alveolus" },
+          { id: "d", text: "Glomerulus" }
+        ],
+        answer: "a",
+        explanation: "Nephron filters blood."
+      }
+    ]
+  },
+
+  {
+    id: "ch20",
+    title: "Locomotion and Movement",
+    questions: [
+      {
+        id: "ch20q1",
+        text: "Which protein is responsible for muscle contraction?",
+        options: [
+          { id: "a", text: "Actin & Myosin" },
+          { id: "b", text: "Keratin" },
+          { id: "c", text: "Collagen" },
+          { id: "d", text: "Elastin" }
+        ],
+        answer: "a",
+        explanation: "Muscles contract by actin and myosin interaction."
+      }
+    ]
+  },
+
+  {
+    id: "ch21",
+    title: "Neural Control and Coordination",
+    questions: [
+      {
+        id: "ch21q1",
+        text: "Unit of nervous system is:",
+        options: [
+          { id: "a", text: "Neuron" },
+          { id: "b", text: "Nephron" },
+          { id: "c", text: "Axon" },
+          { id: "d", text: "Dendrite" }
+        ],
+        answer: "a",
+        explanation: "Neuron is functional and structural unit."
+      }
+    ]
+  },
+
+  {
+    id: "ch22",
+    title: "Chemical Coordination and Integration",
+    questions: [
+      {
+        id: "ch22q1",
+        text: "Which gland is called master gland?",
+        options: [
+          { id: "a", text: "Pituitary" },
+          { id: "b", text: "Thyroid" },
+          { id: "c", text: "Adrenal" },
+          { id: "d", text: "Pancreas" }
+        ],
+        answer: "a",
+        explanation: "Pituitary regulates all other endocrine glands."
+      }
+    ]
+  }
+];
+
+        /****************************************************************
+         * App logic
+         ****************************************************************/
+        const chaptersListEl = document.getElementById('chaptersList');
+        const chapterTitleEl = document.getElementById('chapterTitle');
+        const quizAreaEl = document.getElementById('quizArea');
+        const submitBtn = document.getElementById('submitBtn');
+        const retakeBtn = document.getElementById('retakeBtn');
+        const backBtn = document.getElementById('backBtn');
+        const qInfoEl = document.getElementById('qInfo');
+        const lastScoreEl = document.getElementById('lastScore');
+
+        let activeChapter = null;
+        let answers = {}; // { questionId: optionId }
+        let graded = false;
+
+        // build chapter list
+        function renderChapters() {
+            chaptersListEl.innerHTML = '';
+            QUIZ_DB.forEach((ch, idx) => {
+                const item = document.createElement('div');
+                item.className = 'chapter-item';
+                item.setAttribute('role', 'button');
+                item.setAttribute('tabindex', '0');
+                item.dataset.id = ch.id;
+
+                item.innerHTML = `
+          <div class="meta">
+            <div class="chapter-badge">${idx + 1}</div>
+            <div>
+              <div style="font-weight:700">${ch.title}</div>
+              <small>${ch.questions.length} questions</small>
+            </div>
+          </div>
+          <div class="muted">Start ▶</div>
+        `;
+
+                item.addEventListener('click', () => loadChapter(ch.id));
+                item.addEventListener('keypress', (e) => { if (e.key === 'Enter') loadChapter(ch.id); });
+
+                chaptersListEl.appendChild(item);
+            });
+        }
+
+        // highlight selected chapter in list
+        function highlightSelected() {
+            [...chaptersListEl.children].forEach(el => {
+                el.classList.toggle('active', el.dataset.id === activeChapter?.id);
+            });
+        }
+
+        // load chapter - generate questions UI
+        function loadChapter(chId) {
+            const ch = QUIZ_DB.find(x => x.id === chId);
+            if (!ch) return;
+            activeChapter = ch;
+            answers = {};
+            graded = false;
+            chapterTitleEl.textContent = ch.title;
+            qInfoEl.textContent = `${ch.questions.length} questions • All best of luck!`;
+            submitBtn.style.display = 'inline-block';
+            retakeBtn.style.display = 'none';
+            backBtn.style.display = 'inline-block';
+            renderQuestions(ch);
+            highlightSelected();
+            loadLastScore();
+        }
+
+        function renderQuestions(ch) {
+            quizAreaEl.innerHTML = '';
+            ch.questions.forEach((q, qi) => {
+                const qBox = document.createElement('div');
+                qBox.className = 'question';
+                qBox.dataset.qid = q.id;
+                qBox.innerHTML = `<h5>Q${qi + 1}. ${escapeHtml(q.text)}</h5>`;
+
+                const opts = document.createElement('div');
+                opts.className = 'options';
+                q.options.forEach(opt => {
+                    const optEl = document.createElement('label');
+                    optEl.className = 'option';
+                    optEl.innerHTML = `
+            <input type="radio" name="${q.id}" value="${opt.id}" />
+            <div style="flex:1">${escapeHtml(opt.text)}</div>
+          `;
+                    // clicking option selects radio and stores answer
+                    optEl.addEventListener('click', (e) => {
+                        if (graded) return; // no changes after grading
+                        const input = optEl.querySelector('input');
+                        input.checked = true;
+                        answers[q.id] = opt.id;
+                    });
+                    opts.appendChild(optEl);
+                });
+
+                qBox.appendChild(opts);
+                // explanation placeholder hidden until grading
+                const exp = document.createElement('div');
+                exp.className = 'explain';
+                exp.style.display = 'none';
+                exp.textContent = q.explanation || '';
+                qBox.appendChild(exp);
+
+                quizAreaEl.appendChild(qBox);
+            });
+
+            // scroll to top of quiz area
+            quizAreaEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // grade quiz
+        function gradeQuiz() {
+            if (!activeChapter) return;
+            const ch = activeChapter;
+            let correctCount = 0;
+            const total = ch.questions.length;
+
+            ch.questions.forEach(q => {
+                const qBox = quizAreaEl.querySelector(`[data-qid="${q.id}"]`);
+                const opts = qBox.querySelectorAll('.option');
+                const explanation = qBox.querySelector('.explain');
+
+                // clear classes
+                opts.forEach(o => { o.classList.remove('correct', 'wrong'); });
+
+                const selected = answers[q.id];
+                if (selected === q.answer) {
+                    correctCount++;
+                }
+
+                // mark UI
+                opts.forEach(optEl => {
+                    const input = optEl.querySelector('input');
+                    const val = input.value;
+                    if (val === q.answer) {
+                        optEl.classList.add('correct');
+                    }
+                    if (selected && selected !== q.answer && val === selected) {
+                        optEl.classList.add('wrong');
+                    }
+                });
+
+                // show explanation if provided
+                if (q.explanation) {
+                    explanation.style.display = 'block';
+                }
+            });
+
+            graded = true;
+            submitBtn.style.display = 'none';
+            retakeBtn.style.display = 'inline-block';
+
+            // show result summary
+            showResult(correctCount, total);
+            // save
+            saveLastScore(activeChapter.id, correctCount, total);
+            loadLastScore();
+        }
+
+        function showResult(correctCount, total) {
+            const percent = Math.round((correctCount / total) * 100);
+            const badge = document.createElement('div');
+            badge.className = 'result-badge ' + (percent >= 70 ? 'success' : (percent >= 40 ? 'warn' : ''));
+            badge.textContent = `Score: ${correctCount}/${total} (${percent}%)`;
+
+            const existing = quizAreaEl.querySelector('.result-badge');
+            if (existing) existing.remove();
+
+            quizAreaEl.prepend(badge);
+
+            // also show score-line
+            const scoreLine = document.createElement('div');
+            scoreLine.className = 'score-line';
+            scoreLine.innerHTML = `
+        <div class="muted">Correct: ${correctCount}</div>
+        <div class="muted">Incorrect: ${total - correctCount}</div>
+        <div class="muted">Total: ${total}</div>
+      `;
+
+            // remove old if any and add
+            const old = quizAreaEl.querySelector('.score-line');
+            if (old) old.remove();
+            quizAreaEl.prepend(scoreLine);
+            scoreLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function retakeQuiz() {
+            if (!activeChapter) return;
+            answers = {};
+            graded = false;
+            renderQuestions(activeChapter);
+            submitBtn.style.display = 'inline-block';
+            retakeBtn.style.display = 'none';
+            // remove previous badge/score-line
+            const badge = quizAreaEl.querySelector('.result-badge'); if (badge) badge.remove();
+            const sl = quizAreaEl.querySelector('.score-line'); if (sl) sl.remove();
+        }
+
+        function backToChapters() {
+            activeChapter = null;
+            answers = {};
+            graded = false;
+            chapterTitleEl.textContent = 'Select a chapter to start';
+            qInfoEl.textContent = 'No quiz loaded';
+            quizAreaEl.innerHTML = `<div class="muted center">Pick a chapter to load quiz questions.</div>`;
+            submitBtn.style.display = 'none';
+            retakeBtn.style.display = 'none';
+            backBtn.style.display = 'none';
+            highlightSelected();
+        }
+
+        // simple storage for last score
+        function saveLastScore(chId, correct, total) {
+            const obj = { correct, total, date: new Date().toISOString() };
+            localStorage.setItem(`studybio_score_${chId}`, JSON.stringify(obj));
+        }
+        function loadLastScore() {
+            if (!activeChapter) {
+                lastScoreEl.textContent = '';
+                return;
+            }
+            const key = `studybio_score_${activeChapter.id}`;
+            const raw = localStorage.getItem(key);
+            if (!raw) { lastScoreEl.textContent = ''; return; }
+            try {
+                const s = JSON.parse(raw);
+                lastScoreEl.textContent = `Last: ${s.correct}/${s.total} • ${new Date(s.date).toLocaleString()}`;
+            } catch (e) { lastScoreEl.textContent = ''; }
+        }
+
+        // small helper to escape HTML
+        function escapeHtml(str) {
+            return String(str)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        // wire buttons
+        submitBtn.addEventListener('click', () => {
+            // require all questions answered? we'll grade anyway but warn if unanswered
+            if (!activeChapter) return;
+            const total = activeChapter.questions.length;
+            const answeredCount = Object.keys(answers).length;
+            if (answeredCount < total) {
+                if (!confirm(`You answered ${answeredCount}/${total}. Submit anyway? (Unanswered = incorrect)`)) return;
+            }
+            gradeQuiz();
+        });
+
+        retakeBtn.addEventListener('click', () => retakeQuiz());
+        backBtn.addEventListener('click', () => backToChapters());
+
+        // initialize
+        renderChapters();
+
+        // select first chapter by default (optional)
+        // loadChapter(QUIZ_DB[0].id);
+
+        // keyboard: allow submit with Ctrl+Enter
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                if (submitBtn.style.display !== 'none') submitBtn.click();
+            }
+        });
     </script>
 </body>
 
