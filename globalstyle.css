@@ -123,6 +123,10 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        nav.mobile-nav a:hover {
+            color: var(--primary-color);
+        }
+
         @media(max-width:768px) {
             header .nav-links {
                 display: none;
