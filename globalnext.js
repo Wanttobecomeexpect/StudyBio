@@ -15,6 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
         site.style.display = 'block';
     }, LOADER_DURATION);
 });
+const revealElements = document.querySelectorAll('.scroll-reveal');
+
+function revealOnScroll() {
+    const triggerBottom = window.innerHeight * 0.90;
+
+    revealElements.forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+
+        if (elementTop < triggerBottom) {
+            el.classList.add('revealed');
+        }
+    });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
 
 // Theme toggle (keeps simple)
 (function () {

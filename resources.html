@@ -9,6 +9,108 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="globalstyle.css">
     <style>
+        /* --- Resources Section --- */
+        .resources-section {
+            padding: 120px 5%;
+            text-align: center;
+            position: relative;
+        }
+
+        .resources-title {
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            color: var(--primary);
+        }
+
+        .resources-subtitle {
+            font-family: "Inter", sans-serif;
+            opacity: 0.75;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+
+        /* Grid layout */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 40px;
+            padding: 20px 0;
+        }
+
+        /* Cards */
+        .resource-card {
+            padding: 40px 25px;
+            border-radius: 24px;
+            backdrop-filter: blur(14px);
+            background: var(--card-bg);
+            transition: 0.3s ease;
+            position: relative;
+
+            /* Bio green glow */
+            box-shadow:
+                0 0 18px rgba(76, 175, 80, 0.12),
+                /* soft green */
+                0 0 32px rgba(11, 61, 46, 0.18);
+            /* dark green depth */
+        }
+
+        body.light .resource-card {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow:
+                0 0 25px rgba(76, 175, 80, 0.20),
+                0 0 45px rgba(11, 61, 46, 0.25);
+        }
+
+        /* Icons */
+        .resource-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Button */
+        .resource-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-top: 18px;
+            font-family: "Inter", sans-serif;
+            font-weight: 500;
+
+            /* StudyBio green gradient */
+            background: linear-gradient(90deg, #4CAF50, #0B3D2E);
+            color: white;
+            transition: 0.25s;
+        }
+
+        .resource-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* Dark mode compatibility */
+        body.dark .resource-card {
+            background: rgba(20, 35, 28, 0.60);
+        }
+
+        /* Color Variables */
+        :root {
+            --primary: #0B3D2E;
+            /* Dark Green */
+            --secondary: #4CAF50;
+            /* Light Green */
+            --card-bg: rgba(255, 255, 255, 0.25);
+        }
+
+        body.dark {
+            --card-bg: rgba(15, 25, 20, 0.55);
+        }
+
+
         /* small helper: hide content until loader removed */
         #site-content {
             display: none;
@@ -64,6 +166,55 @@
             <a href="about.html">About</a>
         </nav>
 
+        <section class="resources-section scroll">
+            <h1 class="resources-title">Study Resources</h1>
+            <p class="resources-subtitle">Everything you need — organized, clean, and easy to explore.</p>
+
+            <div class="resources-grid">
+
+                <!-- Card 1 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📘</div>
+                    <h2>Notes Library</h2>
+                    <p>Well-structured chapter-wise notes designed for fast learning and revision.</p>
+                    <a href="#" class="resource-btn">Open Notes</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <h2>Books & PDFs</h2>
+                    <p>Access high-quality textbooks, PDFs, and study material in one place.</p>
+                    <a href="#" class="resource-btn">View PDFs</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="resource-card">
+                    <div class="resource-icon">🧬</div>
+                    <h2>3D Models</h2>
+                    <p>Interactive 3D diagrams of cells, tissues, organs, and biological structures.</p>
+                    <a href="#" class="resource-btn">Explore 3D</a>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📝</div>
+                    <h2>Practice Sheets</h2>
+                    <p>Worksheet-style practice sets to sharpen understanding and boost accuracy.</p>
+                    <a href="#" class="resource-btn">Start Practicing</a>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="resource-card">
+                    <div class="resource-icon">📊</div>
+                    <h2>Diagrams & Charts</h2>
+                    <p>Beautiful labeled diagrams, flowcharts, and illustrations for biology topics.</p>
+                    <a href="#" class="resource-btn">View Diagrams</a>
+                </div>
+
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer>
             &copy; 2025 StudyBio — Unlocking the Secrets of Life
@@ -72,6 +223,21 @@
 
     <script src="globalnext.js"></script>
     <script>
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.scroll');
+
+        function revealOnScroll() {
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add('show');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
     </script>
 </body>
 
