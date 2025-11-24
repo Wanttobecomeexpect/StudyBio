@@ -38,20 +38,25 @@
             color: inherit;
         }
 
-        /* Header - sticky with dim opacity */
+        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
             background-color: rgba(9, 85, 9, 0.79);
+            /* Dim opacity */
             color: white;
             position: sticky;
+            /* Sticky header */
             top: 0;
             z-index: 1000;
+            /* Ensure it stays above content */
             backdrop-filter: blur(8px);
-            transition: background-color .3s ease;
+            /* Slight blur for transparency effect */
+            transition: background-color 0.3s ease;
         }
+
 
         header .logo {
             font-family: 'Poppins', sans-serif;
@@ -59,15 +64,7 @@
             font-size: 1.8rem;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-        }
-
-        /* small logo image placeholder styling */
-        header .logo img {
-            height: 36px;
-            width: 36px;
-            object-fit: contain;
-            display: inline-block;
+            gap: 0.5rem;
         }
 
         header .nav-links {
@@ -78,23 +75,24 @@
         }
 
         header .toggle-btn {
-            padding: .5rem 1rem;
+            padding: 0.5rem 1rem;
             border: none;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 5px;
             background-color: var(--secondary-color);
-            color: var(--button-text-light);
+            color: var(--toggle-btn-text-light);
             font-weight: 600;
-            transition: background-color .4s, color .4s;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         body.dark header {
-            background-color: rgba(9, 85, 9, 0.88);
+            background-color: rgba(9, 85, 9, 0.79);
         }
 
         body.dark .toggle-btn {
-            color: var(--button-text-dark);
+            color: var(--toggle-btn-text-dark);
         }
+
 
         /* Mobile nav */
         nav.mobile-nav {
