@@ -202,67 +202,10 @@ const QUIZ_DB = [
 
     {
         id: "ch10",
-        title: "Cell Cycle and Cell Division",
-        questions: [
-            {
-                id: "ch10q1",
-                text: "Which phase involves separation of sister chromatids?",
-                options: [
-                    { id: "a", text: "Anaphase" },
-                    { id: "b", text: "Prophase" },
-                    { id: "c", text: "Telophase" },
-                    { id: "d", text: "Interphase" }
-                ],
-                answer: "a",
-                explanation: "Chromatids separate during anaphase."
-            }
-        ]
-    },
-
-    {
-        id: "ch11",
-        title: "Transport in Plants",
-        questions: [
-            {
-                id: "ch11q1",
-                text: "Which tissue transports water?",
-                options: [
-                    { id: "a", text: "Xylem" },
-                    { id: "b", text: "Phloem" },
-                    { id: "c", text: "Parenchyma" },
-                    { id: "d", text: "Collenchyma" }
-                ],
-                answer: "a",
-                explanation: "Xylem transports water and minerals."
-            }
-        ]
-    },
-
-    {
-        id: "ch12",
-        title: "Mineral Nutrition",
-        questions: [
-            {
-                id: "ch12q1",
-                text: "Nodule formation occurs in:",
-                options: [
-                    { id: "a", text: "Legumes" },
-                    { id: "b", text: "Gymnosperms" },
-                    { id: "c", text: "Algae" },
-                    { id: "d", text: "Bryophytes" }
-                ],
-                answer: "a",
-                explanation: "Rhizobium forms nodules in leguminous plants."
-            }
-        ]
-    },
-
-    {
-        id: "ch13",
         title: "Photosynthesis in Higher Plants",
         questions: [
             {
-                id: "ch13q1",
+                id: "ch10q1",
                 text: "Where does the Calvin cycle occur?",
                 options: [
                     { id: "a", text: "Stroma" },
@@ -277,11 +220,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch14",
+        id: "ch11",
         title: "Respiration in Plants",
         questions: [
             {
-                id: "ch14q1",
+                id: "ch11q1",
                 text: "Which is the universal energy currency?",
                 options: [
                     { id: "a", text: "ATP" },
@@ -296,11 +239,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch15",
+        id: "ch13",
         title: "Plant Growth and Development",
         questions: [
             {
-                id: "ch15q1",
+                id: "ch13q1",
                 text: "Which hormone promotes cell elongation?",
                 options: [
                     { id: "a", text: "Auxin" },
@@ -315,30 +258,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch16",
-        title: "Digestion and Absorption",
-        questions: [
-            {
-                id: "ch16q1",
-                text: "Which enzyme breaks down proteins?",
-                options: [
-                    { id: "a", text: "Pepsin" },
-                    { id: "b", text: "Amylase" },
-                    { id: "c", text: "Lipase" },
-                    { id: "d", text: "Maltase" }
-                ],
-                answer: "a",
-                explanation: "Pepsin digests proteins."
-            }
-        ]
-    },
-
-    {
-        id: "ch17",
+        id: "ch14",
         title: "Breathing and Exchange of Gases",
         questions: [
             {
-                id: "ch17q1",
+                id: "ch14q1",
                 text: "The functional unit of lungs is:",
                 options: [
                     { id: "a", text: "Alveoli" },
@@ -353,11 +277,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch18",
+        id: "ch15",
         title: "Body Fluids and Circulation",
         questions: [
             {
-                id: "ch18q1",
+                id: "ch15q1",
                 text: "Which blood group is universal donor?",
                 options: [
                     { id: "a", text: "O-" },
@@ -372,11 +296,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch19",
+        id: "ch16",
         title: "Excretory Products and Their Elimination",
         questions: [
             {
-                id: "ch19q1",
+                id: "ch16q1",
                 text: "The functional unit of kidney is:",
                 options: [
                     { id: "a", text: "Nephron" },
@@ -391,11 +315,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch20",
+        id: "ch17",
         title: "Locomotion and Movement",
         questions: [
             {
-                id: "ch20q1",
+                id: "ch17q1",
                 text: "Which protein is responsible for muscle contraction?",
                 options: [
                     { id: "a", text: "Actin & Myosin" },
@@ -410,11 +334,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch21",
+        id: "ch18",
         title: "Neural Control and Coordination",
         questions: [
             {
-                id: "ch21q1",
+                id: "ch18q1",
                 text: "Unit of nervous system is:",
                 options: [
                     { id: "a", text: "Neuron" },
@@ -429,11 +353,11 @@ const QUIZ_DB = [
     },
 
     {
-        id: "ch22",
+        id: "ch19",
         title: "Chemical Coordination and Integration",
         questions: [
             {
-                id: "ch22q1",
+                id: "ch19q1",
                 text: "Which gland is called master gland?",
                 options: [
                     { id: "a", text: "Pituitary" },
