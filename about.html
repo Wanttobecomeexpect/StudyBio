@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | OM</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0c1d0d;
+            color: #ecf2ff;
+            overflow-x: hidden;
+        }
+
+        /* Floating Shapes */
+        .shape {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, #2fff00, #00ff2f);
+            opacity: 0.13;
+            filter: blur(50px);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 5%;
+        }
+
+        .shape:nth-child(2) {
+            bottom: 10%;
+            right: 8%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-40px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            padding: 10px 18px;
+            color: #0c1d0c;
+            background: #00ff04;
+            font-weight: 600;
+            border-radius: 10px;
+            text-decoration: none;
+            z-index: 1000;
+            box-shadow: 0 0 12px rgba(0, 255, 17, 0.4);
+            transition: 0.25s;
+        }
+
+        .back-btn:hover {
+            background: #13e600;
+            transform: translateX(-4px);
+        }
+
+        /* Header Section */
+        header {
+            padding: 120px 20px 35px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3.1rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #09ff00, #50ff8a);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.85;
+            margin-top: 8px;
+        }
+
+        /* Cards */
+        .dev-card {
+            width: 85%;
+            max-width: 820px;
+            background: rgba(255, 255, 255, 0.07);
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 35px rgba(0, 255, 4, 0.12);
+            text-align: center;
+        }
+
+        .dev-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(4, 255, 0, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .dev-name {
+            font-size: 2.2rem;
+            margin-bottom: 6px;
+        }
+
+        .dev-role {
+            font-size: 1.1rem;
+            opacity: 0.75;
+            margin-bottom: 18px;
+        }
+
+        .dev-desc {
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0.92;
+            padding: 0 10px;
+        }
+
+        /* Info Sections */
+        .info-section {
+            width: 90%;
+            max-width: 1100px;
+            margin: 60px auto;
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .info-box {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            transition: 0.3s ease;
+            border-left: 4px solid #09ff00;
+        }
+
+        .info-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(30, 255, 0, 0.18);
+        }
+
+        .info-box h3 {
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+
+        /* StudyBio ABOUT CARD */
+        .studybio-card {
+            width: 85%;
+            max-width: 900px;
+            margin: 60px auto;
+            background: rgba(9, 255, 0, 0.08);
+            padding: 35px;
+            border-radius: 22px;
+            border-left: 5px solid #00ff04;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 25px rgba(9, 255, 0, 0.15);
+        }
+
+        .studybio-card h2 {
+            font-size: 2.1rem;
+            background: linear-gradient(45deg, #11ff00, #40ff32);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .studybio-card p {
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        /* Contact (NEW GREEN THEME) */
+        .contact-section {
+            width: 85%;
+            max-width: 850px;
+            margin: 70px auto;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            backdrop-filter: blur(17px);
+            border: 2px solid rgba(38, 255, 0, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 17, 0.15);
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #11ff00, #40ff32);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .contact-links a {
+            display: block;
+            text-decoration: none;
+            color: #ecf2ff;
+            background: rgba(34, 255, 0, 0.13);
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 12px;
+            backdrop-filter: blur(7px);
+            border: 1px solid rgba(38, 255, 0, 0.25);
+            transition: 0.25s ease;
+        }
+
+        .contact-links a:hover {
+            transform: translateX(6px);
+            background: rgba(0, 255, 17, 0.25);
+        }
+
+        /* Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(45px);
+            transition: 0.85s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Back button -->
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <!-- Floating Shapes -->
+    <div class="shape"></div>
+    <div class="shape"></div>
+
+    <!-- Header -->
+    <header>
+        <h1>Meet the Developer</h1>
+        <p>The mind behind the experience.</p>
+    </header>
+
+    <!-- Developer Section -->
+    <section class="dev-card reveal">
+        <img src="om.png" alt="OM">
+
+        <h2 class="dev-name">Om Vishwakarma</h2>
+        <p class="dev-role">Frontend Developer • UI/UX Designer • Student</p>
+
+        <p class="dev-desc">
+            I'm Om — a passionate developer focused on crafting clean, modern,
+            and student-friendly digital experiences.
+            I build smooth, fast and premium-feeling interfaces for all devices.
+        </p>
+    </section>
+
+    <!-- StudyBio Info Section -->
+    <section class="studybio-card reveal">
+        <h2>About StudyBio</h2>
+        <p>
+            StudyBio is a modern biology-learning platform designed for Class 11 & 12 students.
+            The website features: animations, labelled diagrams, quizzes, chapter summaries,
+            concept maps and interactive UI — all built with a smooth dark-green theme.
+        </p>
+        <br>
+        <p>
+            The goal of StudyBio is simple: make biology easier, cleaner and more enjoyable for every student.
+        </p>
+    </section>
+
+    <!-- Information Grid -->
+    <section class="info-section">
+
+        <div class="info-box reveal">
+            <h3>What I Do</h3>
+            <p>UI/UX design, animations, responsive layouts, frontend logic,
+                and high-performance clean web experiences.</p>
+        </div>
+
+        <div class="info-box reveal">
+            <h3>Experience</h3>
+            <p>Developed multiple student-focused tools, study platforms &
+                interactive biology pages with premium-level finish.</p>
+        </div>
+
+        <div class="info-box reveal">
+            <h3>Skills</h3>
+            <p>HTML • CSS • JS • UI/UX • Optimization • Animations • Responsive Design</p>
+        </div>
+
+    </section>
+
+    <!-- GREEN CONTACT SECTION -->
+    <section class="contact-section reveal">
+        <h2 class="contact-title">Contact Me</h2>
+
+        <div class="contact-links">
+            <a href="https://www.instagram.com/developers_nagaji/#" target="_blank">📷 Instagram</a>
+            <a href="https://t.me/deve_lopers" target="_blank">📨 Telegram</a>
+            <a href="https://whatsapp.com/channel/0029Vb67nwrFCCoY9N9oBi2t" target="_blank">💬 WhatsApp</a>
+            <a href="https://www.linkedin.com/in/developers-team-devlopers-563526392?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                target="_blank">💼 LinkedIn</a>
+        </div>
+    </section>
+
+    <!-- Reveal Script -->
+    <script>
+        function revealOnScroll() {
+            document.querySelectorAll(".reveal").forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add("active");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", revealOnScroll);
+        window.addEventListener("load", revealOnScroll);
+    </script>
+
+</body>
+
+</html>
