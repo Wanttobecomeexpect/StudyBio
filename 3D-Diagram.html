@@ -397,6 +397,68 @@
                 transform: none
             }
         }
+
+        /* making .filter mobile responsive */
+        .filter {
+            position: relative;
+        }
+
+        .filter-toggle {
+            display: none;
+            padding: 8px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background: var(--glass);
+            cursor: pointer;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        body.light .filter-toggle {
+            border-color: rgba(0, 0, 0, 0.658);
+            color: rgba(0, 0, 0, 0.634);
+        }
+
+        body.dark .filter-toggle {
+            border-color: rgba(80, 79, 79, 0.832);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        body.light .filter-options {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        body.dark .filter-options {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 980px) {
+            .filter-toggle {
+                display: inline-block;
+            }
+
+            .filter-options {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: -75px;
+
+                background: var(--glass-strong);
+                border-radius: 8px;
+                padding: 12px;
+                box-shadow: var(--shadow);
+                flex-direction: column;
+                gap: 10px;
+                z-index: 1000;
+            }
+
+            .filter.show .filter-options {
+                display: flex;
+            }
+        }
     </style>
 </head>
 
@@ -457,9 +519,7 @@
             <section class="hero">
                 <div>
                     <h1>Interactive 3D Diagrams — Chapter-wise</h1>
-                    <p>Preview, open and study high-quality 3D diagrams. Click any tile to open a blur-backed preview.
-                        Works
-                        in light & dark mode.</p>
+                    <p>Preview, open and study high-quality 3D diagrams.</p>
                 </div>
             </section>
 
@@ -469,11 +529,20 @@
                         aria-label="Search diagrams">
                 </div>
                 <div class="filter">
-                    <div class="chip active" data-filter="all">All</div>
-                    <div class="chip" data-filter="botany">Botany</div>
-                    <div class="chip" data-filter="zoology">Zoology</div>
-                    <div class="chip" data-filter="cell">Cell</div>
+                    <button class="filter-toggle" aria-label="Toggle Filters">Filters</button>
+                    <div class="filter-options">
+                        <div class="chip active" data-filter="all">All</div>
+                        <div class="chip" data-filter="botany">Botany</div>
+                        <div class="chip" data-filter="zoology">Zoology</div>
+                        <div class="chip" data-filter="cell">Cell</div>
+                    </div>
                 </div>
+                <style>
+
+                </style>
+                <script>
+
+                </script>
             </div>
 
             <div class="chapters">
@@ -598,6 +667,19 @@
     </div>
     <script src="globalnext.js"></script>
     <script>
+        // making .filter mobile responsive
+        const filterToggle = document.querySelector('.filter-toggle');
+        const filter = document.querySelector('.filter');
+
+        filterToggle.addEventListener('click', () => {
+            filter.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!filter.contains(e.target)) {
+                filter.classList.remove('show');
+            }
+        });
         // Theme toggle (persisted) and initialization
         const body = document.body;
         const themeToggle = document.getElementById('theme-toggle');
