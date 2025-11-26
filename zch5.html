@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>StudyBio — Chapter: Body Fluids and Circulation</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;700&family=Patrick+Hand&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="globalstyle.css">
+    <style>
+        :root {
+            --primary: #0d600d;
+            --accent: #6fcf6f;
+            --glass: rgba(255, 255, 255, 0.08);
+            --paper: #fbf9f3;
+            --ink: #336c33;
+            --muted: #6d7a72;
+            --shadow: 0 10px 30px rgba(2, 20, 10, 0.08);
+        }
+
+        /* Layout */
+        .wrap {
+            max-width: 1200px;
+            margin: 84px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 28px;
+            align-items: start
+        }
+
+        @media(max-width:980px) {
+            .wrap {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* Header */
+        header.sitebar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            z-index: 999;
+            transition: background .25s, border-color .25s, box-shadow .25s;
+        }
+
+        body.dark header.sitebar {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.08));
+            border-bottom-color: rgba(255, 255, 255, 0.04)
+        }
+
+        header.sitebar.stuck {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06)
+        }
+
+        body.dark header.sitebar.stuck {
+            background: rgba(4, 30, 8, 0.95)
+        }
+
+        .brand {
+            font-family: Poppins;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .brand .logo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 18px var(--accent)
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .toggle-btn {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .menu-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer
+        }
+
+        @media(max-width:980px) {
+            .menu-toggle {
+                display: inline-block
+            }
+
+            .brand a {
+                pointer-events: none
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.01));
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+            transition: all .28s;
+            box-shadow: var(--shadow);
+            max-height: calc(100vh - 120px);
+            overflow: auto;
+            backdrop-filter: blur(8px);
+        }
+
+        body.dark .sidebar {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.10))
+        }
+
+        .sidebar h3 {
+            font-family: Poppins;
+            margin-bottom: 10px;
+            color: var(--primary)
+        }
+
+        .chapter-topics {
+            list-style: none;
+            padding: 6px 0
+        }
+
+        .chapter-topics li {
+            margin: 8px 0
+        }
+
+        .chapter-topics a {
+            display: block;
+            padding: 8px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 600;
+            background: transparent;
+            transition: all .18s;
+            font-family: Poppins, cursive;
+        }
+
+        .chapter-topics a:hover {
+            background: linear-gradient(90deg, rgba(111, 207, 111, 0.12), rgba(11, 61, 46, 0.04));
+            transform: translateX(6px);
+        }
+
+        .sidebar .resources {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.03)
+        }
+
+        .sidebar .resources a {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600
+        }
+
+        /* Collapse overlay (mobile) */
+        .sidebar-collapsed {
+            display: none
+        }
+
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 998
+        }
+
+        /* Content area (paper-like columns) */
+        .content {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.35));
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: var(--shadow);
+            font-family: "Poppins", "Patrick Hand", cursive;
+            line-height: 1.6;
+        }
+
+        body.dark .content {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.14))
+        }
+
+        .chapter-header .nav {
+            font-family: Inter;
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 6px
+        }
+
+        .chapter-header .nav .hover:hover {
+            color: var(--ink);
+        }
+
+        .chapter-header h1 {
+            font-family: Poppins;
+            margin-bottom: 8px;
+            color: var(--primary)
+        }
+
+        /* paper-like divider */
+        .paper-divider {
+            height: 10px;
+            background: linear-gradient(90deg, rgba(6, 61, 12, 0.03), rgba(111, 207, 111, 0.06));
+            margin: 18px 0;
+            border-radius: 6px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        /* Section card (subtopic) */
+        .subtopic {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.75));
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 18px;
+            border-left: 6px solid var(--accent);
+            transition: transform .22s, box-shadow .22s;
+        }
+
+        body.dark .subtopic {
+            background: linear-gradient(180deg, rgba(5, 20, 8, 0.3), rgba(5, 20, 8, 0.22))
+        }
+
+        .subtopic:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 30px rgba(2, 20, 10, 0.06)
+        }
+
+        .subtopic h3 {
+            margin-bottom: 6px
+        }
+
+        .subtopic p {
+            font-size: 16px;
+            color: var(--ink)
+        }
+
+        /* sticky diagram mini-card */
+        .sticky-diagram {
+            position: sticky;
+            top: 110px;
+            margin-left: -12px;
+            border-radius: 12px;
+            padding: 12px;
+            background: var(--glass);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            max-width: 320px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .sticky-diagram img {
+            width: 100%;
+            border-radius: 10px
+        }
+
+        @media(max-width:980px) {
+            .sticky-diagram {
+                position: relative;
+                top: auto;
+                max-width: none;
+                margin: 12px 0
+            }
+        }
+
+        /* diagram grid inside content */
+        .diagram-row {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        @media(max-width:980px) {
+            .diagram-row {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* popup preview */
+        .preview-bg {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(6, 10, 6, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+        }
+
+        .preview-card {
+            max-width: 980px;
+            width: 92%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: popIn .28s ease;
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.01))
+        }
+
+        .btn {
+            padding: 9px 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700
+        }
+
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.12)
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: white
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(.94);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        /* small helpers */
+        .muted {
+            color: var(--muted);
+            font-size: 0.95rem
+        }
+
+        .note {
+            font-size: 15px;
+            color: var(--muted);
+            margin-top: 8px
+        }
+
+        /* small floating animation for cards */
+        .float-anim {
+            animation: floatUp .9s cubic-bezier(.2, .9, .2, 1) forwards
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(18px);
+                opacity: 0
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1
+            }
+        }
+
+        /* Hidden Scrolling effect in chapter list */
+
+        .chapter-list-scroll {
+            max-height: 500px;
+            overflow-y: auto;
+
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .chapter-list-scroll::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body class="light">
+
+    <!-- Loader -->
+    <div id="loader" aria-hidden="false">
+        <div class="book-loader" role="status" aria-live="polite">
+            <div class="book" aria-hidden="true">
+                <div class="cover cover-left"></div>
+                <div class="pages">
+                    <div class="page"></div>
+                    <div class="page"></div>
+                    <div class="page"></div>
+                </div>
+                <div class="cover cover-right"></div>
+            </div>
+            <p class="loading-text">Loading Resources...</p>
+        </div>
+    </div>
+
+    <div id="site-content" style="display:none;">
+
+        <!-- Floating shapes -->
+        <div class="floating-shape shape1" aria-hidden="true"></div>
+        <div class="floating-shape shape2" aria-hidden="true"></div>
+        <div class="floating-shape shape3" aria-hidden="true"></div>
+        <div class="bio-dna floating-shape" aria-hidden="true">🧬</div>
+        <div class="bio-microscope floating-shape" aria-hidden="true">🔬</div>
+        <div class="bio-leaf floating-shape" aria-hidden="true">🍃</div>
+        <div class="bio-cell floating-shape" aria-hidden="true">🦠</div>
+
+        <header class="scroll">
+            <div class="logo"><a href="index.html">StudyBio</a> </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="resources.html">Resources</a>
+                <a href="quizzes.html">Quizzes</a>
+                <a href="about.html">About</a>
+            </div>
+            <button class="toggle-btn" id="theme-toggle">Dark Mode</button>
+        </header>
+
+        <!-- Mobile nav -->
+        <nav class="mobile-nav" aria-hidden="true">
+            <a href="index.html">Home</a>
+            <a href="resources.html">Resources</a>
+            <a href="quizzes.html">Quizzes</a>
+            <a href="about.html">About</a>
+        </nav>
+
+        <!-- main wrap -->
+        <div class="wrap" role="main">
+            <aside class="sidebar" id="sidebar">
+                <h3>Chapter Contents</h3>
+                <ul id="toc" class="chapter-topics chapter-list-scroll">
+                    <li><a href="#blood">Blood — Composition & Functions</a></li>
+                    <li><a href="#lymph">Lymph</a></li>
+                    <li><a href="#heart">Heart — Structure & Cardiac Cycle</a></li>
+                    <li><a href="#blood-vessels">Blood Vessels & Circulatory Routes</a></li>
+                    <li><a href="#hemostasis">Hemostasis & Blood Groups (brief)</a></li>
+                    <li><a href="#summary">Summary</a></li>
+                </ul>
+            </aside>
+
+            <article class="content" id="content">
+                <div class="chapter-header">
+                    <div class="nav"><a href="index.html" class="hover">Home</a> › <span>Body Fluids and
+                            Circulation</span>
+                    </div>
+                    <h1>Body Fluids and Circulation</h1>
+                    <div class="muted">Composition and functions of blood and lymph; heart structure and cardiac cycle;
+                        circulation pathways.</div>
+                </div>
+
+                <div class="paper-divider"></div>
+
+                <section id="blood" class="subtopic">
+                    <h3>Blood — Composition & Functions</h3>
+                    <p>Blood consists of plasma (water, proteins, nutrients) and formed elements (RBCs, WBCs,
+                        platelets).
+                        Functions: transport, defense, regulation of temperature and pH.</p>
+                </section>
+
+                <section id="lymph" class="subtopic">
+                    <h3>Lymph</h3>
+                    <p>Lymph is the interstitial fluid collected via lymphatic system; contains lymphocytes and returns
+                        proteins/fluids to circulatory system; important in immunity and fat transport from intestine.
+                    </p>
+                </section>
+
+                <section id="heart" class="subtopic">
+                    <h3>Heart — Structure & Cardiac Cycle</h3>
+                    <p>Heart chambers, valves (AV and semilunar), cardiac muscle properties. Cardiac cycle phases:
+                        atrial
+                        systole, ventricular systole, diastole; heart sounds and role of ECG (basic idea).</p>
+                </section>
+
+                <section id="blood-vessels" class="subtopic">
+                    <h3>Blood Vessels & Circulatory Routes</h3>
+                    <p>Arteries (carry blood away - thick muscular walls), veins (to heart - valves in limbs),
+                        capillaries
+                        (exchange sites). Circulation: pulmonary (lungs) and systemic (body), portal systems (e.g.,
+                        hepatic
+                        portal).</p>
+                </section>
+
+                <section id="hemostasis" class="subtopic">
+                    <h3>Hemostasis & Blood Groups (Brief)</h3>
+                    <p>Hemostasis: vascular spasm, platelet plug, coagulation cascade leading to fibrin clot. Blood
+                        groups
+                        (ABO, Rh) are important for transfusion compatibility.</p>
+                </section>
+
+                <section id="summary" class="subtopic">
+                    <h3>Summary</h3>
+                    <p>Circulatory system ensures distribution of gases, nutrients and immune cells. Understanding blood
+                        components, heart function and vascular structure is essential for physiology and medicine.</p>
+                </section>
+                <!-- sticky diagram card -->
+                <div>
+                    <div class="sticky-diagram" role="complementary" aria-label="Diagram preview">
+                        <img src="/mnt/data/c1e864a8-0266-42fe-8deb-cc7b86ffd7b8.png" alt="Labeled plant diagram"
+                            id="stickyImg">
+                        <div style="width:100%;display:flex;gap:8px">
+                            <button class="btn primary" id="previewBtn">Preview</button>
+                            <button class="btn ghost" id="notesBtn">Add Note</button>
+                        </div>
+                        <div class="note">Tap preview to open large view. Use 'Add Note' to leave a sticky note
+                            (demo).
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="paper-divider"></div>
+
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px">
+            <button class="btn primary" id="startQuiz">Start Chapter Quiz</button>
+            <a class="muted" href="#">Print this chapter</a>
+        </div>
+
+        </article>
+    </div>
+
+    <!-- PREVIEW POPUP -->
+    <div class="preview-bg" id="previewBg" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="preview-card" role="document">
+            <img id="previewImg" src="/mnt/data/c1e864a8-0266-42fe-8deb-cc7b86ffd7b8.png" alt="Diagram preview">
+            <div class="preview-actions">
+                <button class="btn ghost" id="closePreview">Close</button>
+                <button class="btn primary" id="downloadPreview">Download</button>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 StudyBio — Unlocking the Secrets of Life
+    </footer>
+    <script src="globalnext.js"></script>
+    <script>
+        // active clicking effect
+        const links = document.querySelectorAll('#toc a');
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                // remove active from all
+                links.forEach(l => l.classList.remove('active'));
+
+                // add active to clicked one
+                link.classList.add('active');
+            });
+        });
+        // Sidebar mobile toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+        function openDrawer() {
+            sidebar.style.position = 'fixed';
+            sidebar.style.left = '12px';
+            sidebar.style.top = '84px';
+            sidebar.style.width = 'calc(100% - 24px)';
+            sidebar.style.maxHeight = 'calc(100% - 120px)';
+            drawerOverlay.style.display = 'block';
+            drawerOverlay.setAttribute('aria-hidden', 'false');
+        }
+        function closeDrawer() {
+            sidebar.style.position = '';
+            sidebar.style.left = '';
+            sidebar.style.top = '';
+            sidebar.style.width = '';
+            drawerOverlay.style.display = 'none';
+            drawerOverlay.setAttribute('aria-hidden', 'true');
+        }
+        menuToggle.addEventListener('click', () => {
+            const isOpen = drawerOverlay.style.display === 'block';
+            if (isOpen) closeDrawer(); else openDrawer();
+        });
+        drawerOverlay.addEventListener('click', closeDrawer);
+
+        // Smooth anchor scrolling + active toc highlight
+        const tocLinks = document.querySelectorAll('.chapter-topics a');
+        function setActive(anchor) {
+            tocLinks.forEach(a => a.classList.toggle('active', a === anchor));
+        }
+        tocLinks.forEach(a => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeDrawer();
+                const id = a.getAttribute('href');
+                document.querySelector(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setActive(a);
+            });
+        });
+
+        // IntersectionObserver to auto-highlight TOC while scrolling
+        const sections = document.querySelectorAll('article .subtopic, article .chapter-header');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(ent => {
+                if (ent.isIntersecting && ent.target.id) {
+                    const link = document.querySelector('.chapter-topics a[href="#' + ent.target.id + '"]');
+                    if (link) setActive(link);
+                }
+            });
+        }, { threshold: 0.45 });
+        sections.forEach(s => observer.observe(s));
+
+
+        // Preview popup
+        const previewBg = document.getElementById('previewBg');
+        const previewImg = document.getElementById('previewImg');
+        const previewBtn = document.getElementById('previewBtn');
+        const closePreview = document.getElementById('closePreview');
+        const downloadPreview = document.getElementById('downloadPreview');
+
+        previewBtn.addEventListener('click', () => openPreview(document.getElementById('stickyImg').src));
+        document.getElementById('open3d').addEventListener('click', (e) => { e.preventDefault(); openPreview(document.getElementById('stickyImg').src); });
+
+        function openPreview(src) {
+            previewImg.src = src;
+            previewBg.style.display = 'flex';
+            previewBg.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden'; // prevent background scroll
+        }
+        function closePreviewHandler() {
+            previewBg.style.display = 'none';
+            previewBg.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = ''; // restore
+        }
+        closePreview.addEventListener('click', closePreviewHandler);
+        previewBg.addEventListener('click', (e) => {
+            if (e.target === previewBg) closePreviewHandler();
+        });
+        downloadPreview.addEventListener('click', () => {
+            const a = document.createElement('a');
+            a.href = previewImg.src;
+            a.download = previewImg.src.split('/').pop();
+            document.body.appendChild(a); a.click(); a.remove();
+        });
+
+        // "Add Note" demo (simple sticky note)
+        document.getElementById('notesBtn').addEventListener('click', () => {
+            const note = prompt('Add a short note for this chapter:');
+            if (!note) return;
+            const n = document.createElement('div');
+            n.style.padding = '8px'; n.style.borderRadius = '8px'; n.style.background = 'rgba(255,255,255,0.9)'; n.style.marginTop = '8px';
+            n.style.fontFamily = 'Patrick Hand'; n.style.boxShadow = '0 6px 18px rgba(0,0,0,0.06)';
+            n.textContent = note;
+            document.querySelector('.sticky-diagram').appendChild(n);
+        });
+
+        // Accessibility: ESC to close preview or drawer
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePreviewHandler();
+                closeDrawer();
+            }
+        });
+
+        // Optional: start quiz button demo
+        document.getElementById('startQuiz').addEventListener('click', () => {
+            alert('Quiz feature opens (demo). Link to quizzes.html or open in a modal as needed.');
+        });
+
+    </script>
+</body>
+
+</html>
