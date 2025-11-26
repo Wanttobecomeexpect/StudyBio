@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const site = document.getElementById('site-content');
 
     // Duration in milliseconds; adjust as needed.
-    const LOADER_DURATION = 4500; // 4.5 seconds
+    const LOADER_DURATION = 2000; // 2 seconds
 
     // Ensure loader visible at first, then hide and show site
     setTimeout(() => {
