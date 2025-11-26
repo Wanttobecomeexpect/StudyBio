@@ -1315,7 +1315,7 @@ const QUIZ_DB = [
         title: "Photosynthesis in Higher Plants",
         questions: [
             {
-                id: "ch11p_q1",
+                id: "ch11q1",
                 text: "Which pigment is primarily responsible for trapping light energy?",
                 options: [
                     { id: "a", text: "Chlorophyll a" },
@@ -1327,7 +1327,7 @@ const QUIZ_DB = [
                 explanation: "Chlorophyll a is the reaction centre and essential pigment."
             },
             {
-                id: "ch11p_q2",
+                id: "ch11q2",
                 text: "The first stable product of C3 cycle is:",
                 options: [
                     { id: "a", text: "PGA" },
@@ -1339,7 +1339,7 @@ const QUIZ_DB = [
                 explanation: "C3 plants form phosphoglyceric acid (PGA) first."
             },
             {
-                id: "ch11p_q3",
+                id: "ch11q3",
                 text: "Light reactions occur in which part of the chloroplast?",
                 options: [
                     { id: "a", text: "Stroma" },
@@ -1351,7 +1351,7 @@ const QUIZ_DB = [
                 explanation: "Light reactions occur on thylakoid membranes."
             },
             {
-                id: "ch11p_q4",
+                id: "ch11q4",
                 text: "Which enzyme fixes CO₂ in the Calvin cycle?",
                 options: [
                     { id: "a", text: "PEP carboxylase" },
@@ -1363,7 +1363,7 @@ const QUIZ_DB = [
                 explanation: "Rubisco catalyzes the fixation of CO₂ with RuBP."
             },
             {
-                id: "ch11p_q5",
+                id: "ch11q5",
                 text: "The oxygen released during photosynthesis comes from:",
                 options: [
                     { id: "a", text: "CO₂" },
@@ -1375,7 +1375,7 @@ const QUIZ_DB = [
                 explanation: "Photolysis of water produces O₂."
             },
             {
-                id: "ch11p_q6",
+                id: "ch11q6",
                 text: "C4 plants minimize photorespiration by:",
                 options: [
                     { id: "a", text: "Having stomata open at night" },
@@ -1387,7 +1387,7 @@ const QUIZ_DB = [
                 explanation: "C4 plants use bundle sheath and mesophyll separation."
             },
             {
-                id: "ch11p_q7",
+                id: "ch11q7",
                 text: "Z-scheme describes:",
                 options: [
                     { id: "a", text: "Electron flow in respiration" },
@@ -1399,7 +1399,7 @@ const QUIZ_DB = [
                 explanation: "Z-scheme is the electron flow from PSII → PSI."
             },
             {
-                id: "ch11p_q8",
+                id: "ch11q8",
                 text: "Which of the following is NOT a product of light reaction?",
                 options: [
                     { id: "a", text: "ATP" },
@@ -1411,7 +1411,7 @@ const QUIZ_DB = [
                 explanation: "Glucose is produced in the Calvin cycle, not light reaction."
             },
             {
-                id: "ch11p_q9",
+                id: "ch11q9",
                 text: "During cyclic photophosphorylation, which photosystem is used?",
                 options: [
                     { id: "a", text: "PSI only" },
@@ -1423,7 +1423,7 @@ const QUIZ_DB = [
                 explanation: "Only PSI participates in cyclic photophosphorylation."
             },
             {
-                id: "ch11p_q10",
+                id: "ch11q10",
                 text: "CAM plants open their stomata:",
                 options: [
                     { id: "a", text: "During daytime only" },
@@ -2146,7 +2146,7 @@ const QUIZ_DB = [
         questions: [
 
             {
-                id: "ch17lm_q1",
+                id: "ch17q1",
                 text: "Which protein forms the thick filament in a myofibril?",
                 options: [
                     { id: "a", text: "Actin" },
@@ -2159,7 +2159,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q2",
+                id: "ch17q2",
                 text: "Which ion is essential for muscle contraction?",
                 options: [
                     { id: "a", text: "Na⁺" },
@@ -2172,7 +2172,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q3",
+                id: "ch17q3",
                 text: "Which part of the sarcomere shortens during muscle contraction?",
                 options: [
                     { id: "a", text: "A-band" },
@@ -2185,7 +2185,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q4",
+                id: "ch17q4",
                 text: "The functional unit of muscle contraction is:",
                 options: [
                     { id: "a", text: "Myofibril" },
@@ -2198,7 +2198,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q5",
+                id: "ch17q5",
                 text: "Which joint allows movement in all directions?",
                 options: [
                     { id: "a", text: "Hinge joint" },
@@ -2211,7 +2211,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q6",
+                id: "ch17q6",
                 text: "The largest bone in the human body is:",
                 options: [
                     { id: "a", text: "Humerus" },
@@ -2224,7 +2224,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q7",
+                id: "ch17q7",
                 text: "Rickets is caused due to deficiency of:",
                 options: [
                     { id: "a", text: "Vitamin A" },
@@ -2237,7 +2237,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q8",
+                id: "ch17q8",
                 text: "Which of the following is an example of a synovial joint?",
                 options: [
                     { id: "a", text: "Suture of skull" },
@@ -2250,7 +2250,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q9",
+                id: "ch17q9",
                 text: "Which structure connects muscle to bone?",
                 options: [
                     { id: "a", text: "Ligament" },
@@ -2263,7 +2263,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch17lm_q10",
+                id: "ch17q10",
                 text: "Which disease involves degeneration of motor neurons causing muscle weakness?",
                 options: [
                     { id: "a", text: "Arthritis" },
@@ -2285,7 +2285,7 @@ const QUIZ_DB = [
         questions: [
 
             {
-                id: "ch18nc_q1",
+                id: "ch18q1",
                 text: "The structural and functional unit of the nervous system is:",
                 options: [
                     { id: "a", text: "Neuron" },
@@ -2298,7 +2298,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q2",
+                id: "ch18q2",
                 text: "Myelin sheath around axons is formed by:",
                 options: [
                     { id: "a", text: "Astrocytes" },
@@ -2311,7 +2311,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q3",
+                id: "ch18q3",
                 text: "Which part of the brain controls posture and balance?",
                 options: [
                     { id: "a", text: "Cerebrum" },
@@ -2324,7 +2324,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q4",
+                id: "ch18q4",
                 text: "The gap between two neurons is called:",
                 options: [
                     { id: "a", text: "Node of Ranvier" },
@@ -2337,7 +2337,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q5",
+                id: "ch18q5",
                 text: "Which ion is essential for the release of neurotransmitters at synapse?",
                 options: [
                     { id: "a", text: "Sodium" },
@@ -2350,7 +2350,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q6",
+                id: "ch18q6",
                 text: "Reflex actions are controlled by:",
                 options: [
                     { id: "a", text: "Brain" },
@@ -2363,7 +2363,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q7",
+                id: "ch18q7",
                 text: "Which part of the brain regulates hunger and body temperature?",
                 options: [
                     { id: "a", text: "Pons" },
@@ -2376,7 +2376,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q8",
+                id: "ch18q8",
                 text: "The fluid present in the ventricles of the brain is:",
                 options: [
                     { id: "a", text: "Lymph" },
@@ -2389,7 +2389,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q9",
+                id: "ch18q9",
                 text: "Repolarization of a neuron membrane occurs due to:",
                 options: [
                     { id: "a", text: "Influx of Na⁺" },
@@ -2402,7 +2402,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch18nc_q10",
+                id: "ch18q10",
                 text: "Which part of the eye regulates the amount of light entering it?",
                 options: [
                     { id: "a", text: "Lens" },
@@ -2425,7 +2425,7 @@ const QUIZ_DB = [
         questions: [
 
             {
-                id: "ch19cci_q1",
+                id: "ch19q1",
                 text: "Which gland is known as the 'master gland' of the endocrine system?",
                 options: [
                     { id: "a", text: "Thyroid gland" },
@@ -2438,7 +2438,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q2",
+                id: "ch19q2",
                 text: "Which hormone is responsible for regulating the basal metabolic rate (BMR)?",
                 options: [
                     { id: "a", text: "Insulin" },
@@ -2451,7 +2451,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q3",
+                id: "ch19q3",
                 text: "Which hormone is secreted by the adrenal medulla?",
                 options: [
                     { id: "a", text: "Cortisol" },
@@ -2464,7 +2464,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q4",
+                id: "ch19q4",
                 text: "Which hormone decreases blood glucose levels?",
                 options: [
                     { id: "a", text: "Glucagon" },
@@ -2477,7 +2477,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q5",
+                id: "ch19q5",
                 text: "Which hormone controls sleep–wake cycles (circadian rhythm)?",
                 options: [
                     { id: "a", text: "Oxytocin" },
@@ -2490,7 +2490,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q6",
+                id: "ch19q6",
                 text: "Which gland secretes parathyroid hormone (PTH)?",
                 options: [
                     { id: "a", text: "Thyroid gland" },
@@ -2503,7 +2503,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q7",
+                id: "ch19q7",
                 text: "Aldosterone mainly regulates:",
                 options: [
                     { id: "a", text: "Blood sugar levels" },
@@ -2516,7 +2516,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q8",
+                id: "ch19q8",
                 text: "Which hormone is responsible for the 'fight or flight' response?",
                 options: [
                     { id: "a", text: "Insulin" },
@@ -2529,7 +2529,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q9",
+                id: "ch19q9",
                 text: "Which part of the brain controls pituitary gland secretions?",
                 options: [
                     { id: "a", text: "Cerebellum" },
@@ -2542,7 +2542,7 @@ const QUIZ_DB = [
             },
 
             {
-                id: "ch19cci_q10",
+                id: "ch19q10",
                 text: "Which hormone increases water reabsorption in the kidneys?",
                 options: [
                     { id: "a", text: "LH" },
