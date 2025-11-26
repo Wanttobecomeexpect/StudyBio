@@ -26,7 +26,7 @@
             --max-width: 1200px;
         }
 
-       
+
 
         /* ===== Hero ===== */
         .hero {
@@ -445,7 +445,13 @@
 
             <button class="toggle-btn" id="theme-toggle" aria-pressed="false">Dark Mode</button>
         </header>
-
+        <!-- Mobile nav -->
+        <nav class="mobile-nav" aria-hidden="true">
+            <a href="index.html">Home</a>
+            <a href="resources.html">Resources</a>
+            <a href="quizzes.html">Quizzes</a>
+            <a href="about.html">About</a>
+        </nav>
         <main class="wrap" role="main">
 
             <section class="hero">
@@ -592,14 +598,33 @@
     </div>
     <script src="globalnext.js"></script>
     <script>
-        // Theme toggle
+        // Theme toggle (persisted) and initialization
         const body = document.body;
-        const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            body.classList.toggle('light');
-            themeToggle.textContent = body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
-        });
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // restore saved preference if present
+        try {
+            const savedTheme = localStorage.getItem('studybio-theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                body.classList.remove('light');
+            } else if (savedTheme === 'light') {
+                body.classList.add('light');
+                body.classList.remove('dark');
+            }
+        } catch (e) {
+            // localStorage may be unavailable in some environments; ignore failure
+        }
+
+        function updateThemeButton() {
+            if (!themeToggle) return;
+            const isDark = body.classList.contains('dark');
+            themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            themeToggle.setAttribute('aria-pressed', String(isDark));
+        }
+
+        // ensure button text reflects initial state
+        updateThemeButton();
 
         // Build chapter index (sidebar) from cards
         const cards = Array.from(document.querySelectorAll('.card'));
@@ -648,7 +673,7 @@
             });
         }
 
-        searchInput.addEventListener('input', applyFilter);
+        if (searchInput) searchInput.addEventListener('input', applyFilter);
         chips.forEach(ch => {
             ch.addEventListener('click', () => {
                 chips.forEach(x => x.classList.remove('active'));
@@ -705,18 +730,34 @@
             });
         });
 
-        previewBg.addEventListener('click', hidePreview);
-        previewClose.addEventListener('click', hidePreview);
+        // Only close when clicking the backdrop (not when clicking inside the preview card)
+        if (previewBg) {
+            previewBg.addEventListener('click', (e) => {
+                if (e.target === previewBg) hidePreview();
+            });
+        }
+        if (previewClose) previewClose.addEventListener('click', hidePreview);
 
-        prevBtn.addEventListener('click', () => { showPreview(visibleIndex - 1); });
-        nextBtn.addEventListener('click', () => { showPreview(visibleIndex + 1); });
-        openFullBtn.addEventListener('click', () => {
-            if (visibleIndex < 0) return; const list = visibleCards(); const url = list[visibleIndex].dataset.src; window.open(url, '_blank');
+        // prevent clicks inside preview card from bubbling to backdrop
+        if (previewCard) {
+            previewCard.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => { showPreview(visibleIndex - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { showPreview(visibleIndex + 1); });
+        if (openFullBtn) openFullBtn.addEventListener('click', () => {
+            if (visibleIndex < 0) return;
+            const list = visibleCards();
+            if (!list || list.length === 0) return;
+            const url = list[visibleIndex].dataset.src;
+            if (url) window.open(url, '_blank');
         });
 
         // keyboard nav
         document.addEventListener('keydown', (e) => {
-            if (previewBg.classList.contains('show')) {
+            if (previewBg && previewBg.classList.contains('show')) {
                 if (e.key === 'Escape') hidePreview();
                 if (e.key === 'ArrowLeft') showPreview(visibleIndex - 1);
                 if (e.key === 'ArrowRight') showPreview(visibleIndex + 1);
